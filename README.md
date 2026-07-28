@@ -36,6 +36,19 @@ Para garantir a integridade estatística da análise, os dados foram delimitados
 3. **Satisfação do Cliente:** Percepção do consumidor, distribuição de notas (1 a 5 estrelas) e notas médias detalhadas por categoria de produto.
 ![Preview do Dashboard](Projeto_Olist3.png)
 
+
+
+## Etapas do Desenvolvimento
+
+1. **Ingestão & Banco de Dados (PostgreSQL + Neon + DataGrip):** Criação do banco relacional na nuvem, definição de schemas e importação dos 9 arquivos `.csv` brutos.
+2. **ETL & Tratamento (Power Query):** Conexão ao PostgreSQL, higienização, tipagem correta de datas/moedas e criação da tabela `dCalendario`.
+3. **Modelagem de Dados (Star Schema):** Conexão em estrela entre tabelas fato (*Vendas, Entregas, Avaliações*) e dimensões (*Clientes, Produtos, Vendedores, Calendário*).
+![alt text](image.png)
+4. **UI/UX Design (Figma & Google Stitch):** Criação dos layouts de tela, cartões flutuantes, botões de navegação e ícones vetorizados.
+5. **Cálculos em DAX:** Construção de inteligência temporal (YoY, MoM) e métricas acumuladas/médias.
+6. **Data Visualization & Interatividade:**   - Navegação lateral via botões e *tooltips* explicativos.   - Sincronização de fatiadores com busca rápida por categoria.   - Gráficos otimizados sem redundância de eixos.   - Layout responsivo adaptado para **Dispositivos Móveis (Layout Móvel)**.
+
+
 ## Arquitetura e Engenharia de Dados
 
 O pipeline de dados foi construído seguindo as etapas:
@@ -68,14 +81,7 @@ A interface foi inteiramente prototipada e desenhada utilizando **Figma** e **Go
 - `#FFFFFF` — **Branco:** Fundo dos cartões e alto contraste para leitura de dados.
 ---
 
-## Etapas do Desenvolvimento
 
-1. **Ingestão & Banco de Dados (PostgreSQL + Neon + DataGrip):** Criação do banco relacional na nuvem, definição de schemas e importação dos 9 arquivos `.csv` brutos.
-2. **ETL & Tratamento (Power Query):** Conexão ao PostgreSQL, higienização, tipagem correta de datas/moedas e criação da tabela `dCalendario`.
-3. **Modelagem de Dados (Star Schema):** Conexão em estrela entre tabelas fato (*Vendas, Entregas, Avaliações*) e dimensões (*Clientes, Produtos, Vendedores, Calendário*).
-4. **UI/UX Design (Figma & Google Stitch):** Criação dos layouts de tela, cartões flutuantes, botões de navegação e ícones vetorizados.
-5. **Cálculos em DAX:** Construção de inteligência temporal (YoY, MoM) e métricas acumuladas/médias.
-6. **Data Visualization & Interatividade:**   - Navegação lateral via botões e *tooltips* explicativos.   - Sincronização de fatiadores com busca rápida por categoria.   - Gráficos otimizados sem redundância de eixos.   - Layout responsivo adaptado para **Dispositivos Móveis (Layout Móvel)**.
 
 ---
 
