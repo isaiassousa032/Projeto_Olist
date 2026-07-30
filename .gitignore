@@ -6,3 +6,12 @@ Dicionario de Dados Olist Desatualizado.png
 Dicionario de Dados Olist Definitivo.pdf
 Mapeamento De-Para das linhas e colunas da Modelagem Olist no Power BI.pdf
 Dicionario de Dados Olist Definitivo.png
+env/
+.ipynb_checkpoints/
+.DS_Store
+venv/
+env/
+.env
+__pycache__/
+*.pyc
+.tmp.driveupload/
