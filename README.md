@@ -99,6 +99,18 @@ Todas as medidas DAX, tabela d_Calendario e colunas de apoio de geolocalização
 
 ---
 
+## Análise com SQL (PostgreSQL)
+
+### Scripts Analíticos Disponíveis:
+* [**`01_analise_recencia_churn.sql`**](./sql/01_analise_recencia_churn.sql): Identifica a data da última compra por cliente único (`customer_unique_id`), calcula a recência em dias e segmenta a base em faixas de risco de churn.
+* [**`02_curva_abc_clientes_vip.sql`**](./sql/02_curva_abc_clientes_vip.sql): Aplica a classificação na Curva ABC (80/15/5) sobre o faturamento acumulado e isola os clientes VIPs (Top 5% geradores de receita) utilizando `PERCENT_RANK()`.
+* [**`03_analise_cohort_retencao.sql`**](./sql/03_analise_cohort_retencao.sql): Constrói a matriz de safras (*Cohorts*) por mês de entrada e calcula o comportamento de recompra e retenção ao longo dos 12 meses seguintes.
+
+### 🛠️ Conceitos Técnicos Aplicados em SQL:
+- **Common Table Expressions (CTEs):** Modularização de queries para legibilidade e facilidade de manutenção em produção.
+- **Window Functions:** Uso de `PERCENT_RANK()`, `SUM() OVER ()` e agregações móveis para classificação de percentis e cálculo de faturamento acumulado (*running totals*).
+- **Manipulação Temporal:** Normalização com `DATE_TRUNC()`, extração de intervalos com `EXTRACT()` e cruzamento dinâmico de datas sem valores fixos no código (*hardcoded*).
+
 ## Autor
 
 Desenvolvido por **Isaias Santos**
