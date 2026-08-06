@@ -61,12 +61,12 @@ O pipeline de dados foi construído seguindo as etapas:
 
 ## Principais Indicadores (KPIs)
 
-- **Faturamento Total:** R$ 15,84 Milhões
+- **Faturamento Total:** R$ 12,79 Milhões
 - **Total de Pedidos:** 99 Mil
-- **Ticket Médio:** R$ 136,68
-- **Crescimento YoY:** 119,02%
-- **Tempo Médio de Entrega:** 12,50 Dias
-- **Taxa de Atraso Operacional:** 6,57%
+- **Ticket Médio:** R$ 136,66
+- **Crescimento YoY:** 328,16%
+- **Tempo Médio de Entrega:** 12,48 Dias
+- **Taxa de Atraso Operacional:** 6,59%
 - **Nota Média de Satisfação:** 4,09 / 5,0
 
 ---
