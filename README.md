@@ -61,7 +61,7 @@ O pipeline de dados foi construído seguindo as etapas:
 
 ## Principais Indicadores (KPIs)
 
-- **Faturamento Total:** R$ 12,79 Milhões
+- **Faturamento Total:** R$ 15,79 Milhões
 - **Total de Pedidos:** 99 Mil
 - **Ticket Médio:** R$ 136,66
 - **Crescimento YoY:** 328,16%
