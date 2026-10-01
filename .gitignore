@@ -1,17 +1,28 @@
-Projeto_Olist - Pratica.pbix
-archive.zip
-datasets
-Documento de Arquitetura de Dados Olist E-Commerce.docx
-Dicionario de Dados Olist Desatualizado.png
-Dicionario de Dados Olist Definitivo.pdf
-Mapeamento De-Para das linhas e colunas da Modelagem Olist no Power BI.pdf
-Dicionario de Dados Olist Definitivo.png
-env/
-.ipynb_checkpoints/
-.DS_Store
+# Ambientes
+.venv/
 venv/
-env/
 .env
+ambiente.local
+
+# Python
 __pycache__/
-*.pyc
-.tmp.driveupload/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.python-version
+
+# Dados locais
+dados/brutos/*
+dados/processados/*
+dados/externos/*
+dados/temporarios/*
+dados/amostras/*
+!dados/**/.gitkeep
+
+# Power BI
+powerbi/~$*
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace

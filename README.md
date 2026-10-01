@@ -1,119 +1,64 @@
+# Projeto_Olist_v2
 
-# Dashboard E-commerce (Olist)
-### Projeto Prático de Análise e Engenharia de Dados (End-to-End)
+## Visão Geral
 
-[![Power BI](https://img.shields.io/badge/PowerBI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)](https://powerbi.microsoft.com/)
-[![DAX](https://img.shields.io/badge/DAX-0078D4?style=for-the-badge&logo=microsoft&logoColor=white)](https://learn.microsoft.com/dax/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![DataGrip](https://img.shields.io/badge/DataGrip-000000?style=for-the-badge&logo=datagrip&logoColor=white)](https://www.jetbrains.com/datagrip/)
-[![Neon](https://img.shields.io/badge/Neon-00E599?style=for-the-badge&logo=neon&logoColor=black)](https://neon.tech/)
-[![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/)
+Projeto de analytics engineering (nivel medio). Organize fontes, modelos SQL e metricas antes da visualizacao.
 
----
+## Problema de Negócio
 
+Descreva as perguntas, os indicadores e quem consome as tabelas finais.
 
+## Tecnologias
 
+- SQL como camada principal de transformacao
+- Python / Jupyter para exploracao pontual
+- Power BI para consumo
+- YAML de configuracao nos niveis medio e grande
 
+## Arquitetura
 
-🔗 [**Clique aqui para acessar o Dashboard Interativo**](https://app.powerbi.com/view?r=eyJrIjoiZWM5YzNlNDQtZjMyZi00NDNmLThlODYtOTlmMjQ0MmJlZmY0IiwidCI6IjQwNTBmNTliLTViYTItNGEwOS04NDU4LWI2MjUwOWM0Yzk3ZCJ9)
+Fontes -> modelos de preparacao -> (intermediario, se houver) -> apresentacao -> Power BI e analises.
 
----
+## Estrutura de Pastas
 
-## Sobre o Projeto
+- `modelos/intermediario`: regras de negocio reutilizaveis
+- `sementes`: cadastros pequenos versionados
+- `sql/testes`: checagens de qualidade
+- `docs/metricas`: definicao de indicadores
 
-Este projeto consiste em uma solução analítica *End-to-End* para monitoramento da operação de e-commerce da **Olist**. O pipeline engloba desde a ingestão dos dados brutos do Kaggle em um banco de dados relacional na nuvem até a criação de um aplicativo analítico no Power BI focado em decisões executivas.
+## Pipeline
 
-Para garantir a integridade estatística da análise, os dados foram delimitados entre **Janeiro/2017 e Agosto/2018**, eliminando ruídos dos meses de borda e garantindo métricas consolidadas.
+1. Documente as origens em `sql/fontes`.
+2. Construa a preparacao em `modelos/preparacao`.
+3. Publique tabelas de consumo em `modelos/apresentacao`.
+4. Valide metricas e atualize o Power BI.
 
-### Visões da Aplicação:
+## Decisões de Limpeza
 
-1. **Visão Geral:** Acompanhamento de faturamento, volume de pedidos, ticket médio, crescimento YoY e distribuição geográfica.
-![Preview do Dashboard](docs/Projeto_Olist.png)
+Registre chaves, nulos, granularidade e filtros que entram nos modelos.
 
-2. **Eficiência Logística:** Monitoramento de tempos de entrega, cumprimento de SLA (atrasos) e volume mensal de expedição.
-![Preview do Dashboard](docs/Projeto_Olist2.png)
+## Perguntas de Negócio
 
-3. **Satisfação do Cliente:** Percepção do consumidor, distribuição de notas (1 a 5 estrelas) e notas médias detalhadas por categoria de produto.
-![Preview do Dashboard](docs/Projeto_Olist3.png)
+Liste perguntas e a tabela de apresentacao que responde cada uma.
 
+## Power BI
 
+Aponte o modelo semantico para `modelos/apresentacao` (ou para a camada publicada equivalente).
 
-## Etapas do Desenvolvimento
+## Insights
 
-1. **Ingestão & Banco de Dados (PostgreSQL + Neon + DataGrip):** Criação do banco relacional na nuvem, definição de schemas e importação dos 9 arquivos `.csv` brutos.
-2. **ETL & Tratamento (Power Query):** Conexão ao PostgreSQL, higienização, tipagem correta de datas/moedas e criação da tabela `dCalendario`.
-3. **Modelagem de Dados (Star Schema):** Conexão em estrela entre tabelas fato (*Vendas, Entregas, Avaliações*) e dimensões (*Clientes, Produtos, Vendedores, Calendário*).
-![alt text](docs/Modelo_de_dados.png)
-4. **UI/UX Design (Figma & Google Stitch):** Criação dos layouts de tela, cartões flutuantes, botões de navegação e ícones vetorizados.
-5. **Cálculos em DAX:** Construção de inteligência temporal (YoY, MoM) e métricas acumuladas/médias.
-6. **Data Visualization & Interatividade:**   - Navegação lateral via botões e *tooltips* explicativos.   - Sincronização de fatiadores com busca rápida por categoria.   - Gráficos otimizados sem redundância de eixos.   - Layout responsivo adaptado para **Dispositivos Móveis (Layout Móvel)**.
+Anote achados que dependem da modelagem, nao so do grafico.
 
+## Como Executar
 
-## Arquitetura e Engenharia de Dados
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
 
-O pipeline de dados foi construído seguindo as etapas:
-1. **Fonte dos Dados:** Coleta dos 9 arquivos brutos (`.csv`) do dataset público da Olist no Kaggle. [Clique aqui para acessar o dataset da Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
-2. **Banco de Dados na Nuvem:** Instanciação do banco de dados **PostgreSQL** hospedado na plataforma [**Neon**](https://neon.com/).
-3. **Modelagem & Ingestão (DataGrip):** Estruturação do schema `olist` e carga completa das 9 tabelas relacionais via [**DataGrip**](https://www.jetbrains.com/pt-br/datagrip/).
-4. **Consumo no Power BI:** Conexão nativa entre o Power BI e a instância do PostgreSQL no Neon para extração e modelagem das visões analíticas.
+Ajuste os SQLs em `modelos` e execute no seu motor (DuckDB, warehouse, etc.).
 
----
+## Melhorias
 
-## Principais Indicadores (KPIs)
-
-- **Faturamento Total:** R$ 15,79 Milhões
-- **Total de Pedidos:** 99 Mil
-- **Ticket Médio:** R$ 136,66
-- **Crescimento YoY:** 328,16%
-- **Tempo Médio de Entrega:** 12,48 Dias
-- **Taxa de Atraso Operacional:** 6,59%
-- **Nota Média de Satisfação:** 4,09 / 5,0
-
----
-## Design e UI/UX
-
-A interface foi inteiramente prototipada e desenhada utilizando **Figma** e **Google Stitch**.
-
-### Paleta de Cores:
-- `#202246` — **Azul Escuro:** Fundo principal do menu lateral e cabeçalhos.
-- `#E66F3C` — **Laranja Destaque:** Cor primária de ação, botões selecionados e alertas.
-- `#64748B` — **Slate/Cinza:** Textos secundários e elementos de apoio.
-- `#FFFFFF` — **Branco:** Fundo dos cartões e alto contraste para leitura de dados.
----
-
-
-
----
-
-## Medidas DAX Utilizadas
-
-Todas as medidas DAX, tabela d_Calendario e colunas de apoio de geolocalização foram organizadas e documentadas em um arquivo dedicado.
-
-🔗 [**Clique aqui para ver a documentação completa das medidas DAX**](./dax/medidas_dax.md)
-
----
-
-## Vídeo Demonstrativo
-
-> *Em breve*
-
----
-
-## Análise com SQL (PostgreSQL)
-
-### Scripts Analíticos Disponíveis:
-* [**`01_analise_recencia_churn.sql`**](./sql/01_analise_recencia_churn.sql): Identifica a data da última compra por cliente único (`customer_unique_id`), calcula a recência em dias e segmenta a base em faixas de risco de churn.
-* [**`02_curva_abc_clientes_vip.sql`**](./sql/02_curva_abc_clientes_vip.sql): Aplica a classificação na Curva ABC (80/15/5) sobre o faturamento acumulado e isola os clientes VIPs (Top 5% geradores de receita) utilizando `PERCENT_RANK()`.
-* [**`03_analise_cohort_retencao.sql`**](./sql/03_analise_cohort_retencao.sql): Constrói a matriz de safras (*Cohorts*) por mês de entrada e calcula o comportamento de recompra e retenção ao longo dos 12 meses seguintes.
-
-### 🛠️ Conceitos Técnicos Aplicados em SQL:
-- **Common Table Expressions (CTEs):** Modularização de queries para legibilidade e facilidade de manutenção em produção.
-- **Window Functions:** Uso de `PERCENT_RANK()`, `SUM() OVER ()` e agregações móveis para classificação de percentis e cálculo de faturamento acumulado (*running totals*).
-- **Manipulação Temporal:** Normalização com `DATE_TRUNC()`, extração de intervalos com `EXTRACT()` e cruzamento dinâmico de datas sem valores fixos no código (*hardcoded*).
-
-## Autor
-
-Desenvolvido por **Isaias Santos**
-
-* [LinkedIn](https://www.linkedin.com/in/isaiassousadossantos/)
-* [Meu Site / Portfólio](https://isaiassantos.works/)
+Novas fontes, testes de qualidade e documentacao de metricas.

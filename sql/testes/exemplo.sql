@@ -1,0 +1,2 @@
+-- Projeto_Olist_v2
+-- Teste de qualidade / unicidade / nulos
