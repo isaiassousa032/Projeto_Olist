@@ -2,8 +2,17 @@ version: 2
 
 sources:
   - name: raw
-    database: OLIST_DB
+    description: >
+      Camada de dados brutos. contém os dados originais do dataset olist, armazenados no snowflake.
+    database: OLIST
     schema: RAW
     tables:
       - name: customers
+      - name: geolocation
+      - name: order_items
+      - name: order_payments
+      - name: order_reviews
       - name: orders
+      - name: product_category_name_translation
+      - name: products
+      - name: sellers
