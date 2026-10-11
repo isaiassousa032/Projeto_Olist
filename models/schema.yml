@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_olist_customers
+    description: Um registro por usuário
+    columns:
+      - name: customer_id
+        description: Chave Primária
+        data_tests:
+          - unique
+          - not_null
+  - name: stg_olist_orders
+    description: um registro por pedido
+    columns:
+      - name: order_id
+        description: Chave Primária
+        data_tests:
+          - unique
+          - not_null
+      - name: order_status
+        description: status do pedido
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments: 
+                values: ['delivered', 'invoiced', 'shipped', 'canceled', 'unavailable', 'processing', 'created', 'approved']
