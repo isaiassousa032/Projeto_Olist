@@ -38,17 +38,17 @@ models:
     # Camada Staging
     # Limpeza, renomeação e padronização de dados
     staging:
-      +schema: STAGING
+      +schema: staging
       +materialized: view
 
     # Camada Intermediate
     # Integração e transformações intermediárias
     intermediate:
-      +schema: INTERMEDIATE
+      +schema: intermediate
       +materialized: view
 
     # Camada Marts / Gold
     # Modelos analíticos, fatos e dimensões
     marts:
-      +schema: MARTS
+      +schema: marts
       +materialized: table
