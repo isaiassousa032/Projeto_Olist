@@ -1,26 +1,197 @@
 version: 2
 
 models:
+
+  # ==========================================
+  # CUSTOMERS
+  # ==========================================
   - name: stg_olist_customers
-    description: Um registro por usuário
+    description: "Um registro por customer_id."
     columns:
       - name: customer_id
-        description: Chave Primária
+        description: "Identificador do cliente associado ao pedido."
         data_tests:
           - unique
           - not_null
-  - name: stg_olist_orders
-    description: um registro por pedido
+
+      - name: customer_unique_id
+        description: "Identificador do comprador, que pode aparecer em vários pedidos."
+        data_tests:
+          - not_null
+
+  # ==========================================
+  # GEOLOCATION
+  # ==========================================
+  - name: stg_olist_geolocation
+    description: "Registros de geolocalização por prefixo de CEP."
+    columns:
+      - name: zip_code_prefix
+        description: "Prefixo do CEP. Pode aparecer em múltiplos registros."
+        data_tests:
+          - not_null
+
+      - name: latitude
+        description: "Coordenada geográfica de latitude."
+
+      - name: longitude
+        description: "Coordenada geográfica de longitude."
+
+  # ==========================================
+  # ORDER ITEMS
+  # ==========================================
+  - name: stg_olist_order_items
+    description: "Um registro por item de pedido."
     columns:
       - name: order_id
-        description: Chave Primária
+        description: "Identificador do pedido."
         data_tests:
-          - unique
           - not_null
-      - name: order_status
-        description: status do pedido
+
+      - name: order_item_id
+        description: "Número sequencial do item dentro do pedido."
+        data_tests:
+          - not_null
+
+      - name: product_id
+        description: "Identificador do produto."
+        data_tests:
+          - not_null
+
+      - name: seller_id
+        description: "Identificador do vendedor."
+        data_tests:
+          - not_null
+
+  # ==========================================
+  # ORDER PAYMENTS
+  # ==========================================
+  - name: stg_olist_order_payments
+    description: "Um registro por pagamento de um pedido."
+    columns:
+      - name: order_id
+        description: "Identificador do pedido."
+        data_tests:
+          - not_null
+
+      - name: payment_sequential
+        description: "Sequência do pagamento dentro do pedido."
+        data_tests:
+          - not_null
+
+      - name: payment_type
+        description: "Modalidade utilizada no pagamento."
+
+      - name: payment_amount
+        description: "Valor do pagamento."
+
+  # ==========================================
+  # ORDER REVIEWS
+  # ==========================================
+  - name: stg_olist_order_reviews
+    description: "Registros das avaliações dos pedidos."
+    columns:
+      - name: review_id
+        description: "Identificador da avaliação."
+        data_tests:
+          - not_null
+
+      - name: order_id
+        description: "Identificador do pedido avaliado."
+        data_tests:
+          - not_null
+
+      - name: rating
+        description: "Nota atribuída ao pedido, de 1 a 5."
         data_tests:
           - not_null
           - accepted_values:
-              arguments: 
-                values: ['delivered', 'invoiced', 'shipped', 'canceled', 'unavailable', 'processing', 'created', 'approved']
+              arguments:
+                values: [1, 2, 3, 4, 5]
+                quote: false
+
+  # ==========================================
+  # ORDERS
+  # ==========================================
+  - name: stg_olist_orders
+    description: "Um registro por pedido."
+    columns:
+      - name: order_id
+        description: "Identificador único do pedido."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: customer_id
+        description: "Identificador do cliente associado ao pedido."
+        data_tests:
+          - not_null
+
+      - name: status
+        description: "Status atual do pedido."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - delivered
+                  - invoiced
+                  - shipped
+                  - canceled
+                  - unavailable
+                  - processing
+                  - created
+                  - approved
+
+  # ==========================================
+  # PRODUCT CATEGORY TRANSLATION
+  # ==========================================
+  - name: stg_olist_product_category_name_translation
+    description: "Tradução das categorias de produtos."
+    columns:
+      - name: category_name_pt
+        description: "Categoria original em português."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: category_name_en
+        description: "Categoria traduzida para inglês."
+
+  # ==========================================
+  # PRODUCTS
+  # ==========================================
+  - name: stg_olist_products
+    description: "Um registro por produto."
+    columns:
+      - name: product_id
+        description: "Identificador único do produto."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: category_name_pt
+        description: "Categoria original do produto."
+
+      - name: weight_g
+        description: "Peso do produto em gramas."
+
+  # ==========================================
+  # SELLERS
+  # ==========================================
+  - name: stg_olist_sellers
+    description: "Um registro por vendedor."
+    columns:
+      - name: seller_id
+        description: "Identificador único do vendedor."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: zip_code_prefix
+        description: "Prefixo do CEP do vendedor."
+
+      - name: city
+        description: "Cidade do vendedor."
+
+      - name: state
+        description: "UF do vendedor."
