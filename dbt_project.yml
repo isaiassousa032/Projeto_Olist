@@ -17,14 +17,6 @@ test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
-
-# Artefatos de build
-# ==================
-
-# Diretório dos arquivos compilados
-target-path: "target"
-
-# Diretórios removidos pelo dbt clean
 clean-targets:
   - "target"
   - "dbt_packages"
@@ -52,3 +44,5 @@ models:
     marts:
       +schema: marts
       +materialized: table
+flags:
+  require_generic_test_arguments_property: true

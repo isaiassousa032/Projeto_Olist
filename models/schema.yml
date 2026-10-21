@@ -126,9 +126,9 @@ models:
         data_tests:
           - not_null
           - relationships:
-              to: ref('stg_olist_customers')
-              field: customer_id
-
+              arguments:
+                to: ref('stg_olist_customers')
+                field: customer_id
       - name: status
         description: "Status atual do pedido."
         data_tests:
