@@ -1,0 +1,1 @@
+Select * from {{ ref("stg_olist_customers") }}

@@ -125,6 +125,9 @@ models:
         description: "Identificador do cliente associado ao pedido."
         data_tests:
           - not_null
+          - relationships:
+              to: ref('stg_olist_customers')
+              field: customer_id
 
       - name: status
         description: "Status atual do pedido."
