@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: int_olist_customers
+    description: "Projeção explícita de clientes, no grão customer_id; customer_unique_id pode se repetir."
+    columns:
+      - name: customer_id
+        description: "Identificador associado a um pedido."
+      - name: customer_unique_id
+        description: "Identificador do comprador entre pedidos."
+      - name: zip_code
+        description: "Prefixo de CEP do cadastro associado ao pedido."
+      - name: city
+        description: "Cidade do cadastro associado ao pedido."
+      - name: state
+        description: "UF do cadastro associado ao pedido."

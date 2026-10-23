@@ -19,6 +19,15 @@ models:
         data_tests:
           - not_null
 
+      - name: zip_code
+        description: "Prefixo de CEP do cadastro associado ao pedido."
+
+      - name: city
+        description: "Cidade do cadastro associado ao pedido."
+
+      - name: state
+        description: "UF do cadastro associado ao pedido."
+
   # ==========================================
   # GEOLOCATION
   # ==========================================
@@ -36,6 +45,12 @@ models:
       - name: longitude
         description: "Coordenada geográfica de longitude."
 
+      - name: city
+        description: "Cidade do registro geográfico."
+
+      - name: state
+        description: "UF do registro geográfico."
+
   # ==========================================
   # ORDER ITEMS
   # ==========================================
@@ -46,6 +61,10 @@ models:
         description: "Identificador do pedido."
         data_tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_olist_orders')
+                field: order_id
 
       - name: order_item_id
         description: "Número sequencial do item dentro do pedido."
@@ -56,11 +75,28 @@ models:
         description: "Identificador do produto."
         data_tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_olist_products')
+                field: product_id
 
       - name: seller_id
         description: "Identificador do vendedor."
         data_tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_olist_sellers')
+                field: seller_id
+
+      - name: shipping_limit_date
+        description: "Prazo de envio do item."
+
+      - name: item_price
+        description: "Preço do item sem frete."
+
+      - name: freight_price
+        description: "Valor do frete do item."
 
   # ==========================================
   # ORDER PAYMENTS
@@ -72,6 +108,10 @@ models:
         description: "Identificador do pedido."
         data_tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_olist_orders')
+                field: order_id
 
       - name: payment_sequential
         description: "Sequência do pagamento dentro do pedido."
@@ -80,6 +120,9 @@ models:
 
       - name: payment_type
         description: "Modalidade utilizada no pagamento."
+
+      - name: installments_count
+        description: "Quantidade de parcelas informada no pagamento."
 
       - name: payment_amount
         description: "Valor do pagamento."
@@ -99,6 +142,10 @@ models:
         description: "Identificador do pedido avaliado."
         data_tests:
           - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_olist_orders')
+                field: order_id
 
       - name: rating
         description: "Nota atribuída ao pedido, de 1 a 5."
@@ -108,6 +155,18 @@ models:
               arguments:
                 values: [1, 2, 3, 4, 5]
                 quote: false
+
+      - name: comment_title
+        description: "Título do comentário, quando informado."
+
+      - name: comment_message
+        description: "Texto do comentário, quando informado."
+
+      - name: review_created_at
+        description: "Data de criação da avaliação."
+
+      - name: review_answered_at
+        description: "Data da resposta à avaliação, quando disponível."
 
   # ==========================================
   # ORDERS
@@ -145,6 +204,21 @@ models:
                   - created
                   - approved
 
+      - name: purchased_at
+        description: "Data e hora da compra."
+
+      - name: approved_at
+        description: "Data e hora da aprovação, quando disponível."
+
+      - name: delivered_to_carrier_at
+        description: "Data e hora da entrega à transportadora, quando disponível."
+
+      - name: delivered_to_customer_at
+        description: "Data e hora da entrega ao cliente, quando disponível."
+
+      - name: estimated_delivery_at
+        description: "Data estimada para a entrega."
+
   # ==========================================
   # PRODUCT CATEGORY TRANSLATION
   # ==========================================
@@ -175,8 +249,26 @@ models:
       - name: category_name_pt
         description: "Categoria original do produto."
 
+      - name: name_length
+        description: "Comprimento do nome do produto."
+
+      - name: description_length
+        description: "Comprimento da descrição do produto."
+
+      - name: photos_count
+        description: "Quantidade de fotos do produto."
+
       - name: weight_g
         description: "Peso do produto em gramas."
+
+      - name: length_cm
+        description: "Comprimento do produto em centímetros."
+
+      - name: height_cm
+        description: "Altura do produto em centímetros."
+
+      - name: width_cm
+        description: "Largura do produto em centímetros."
 
   # ==========================================
   # SELLERS

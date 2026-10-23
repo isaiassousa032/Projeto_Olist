@@ -8,11 +8,20 @@ sources:
     schema: RAW
     tables:
       - name: customers
+        description: "Cadastros associados aos pedidos; customer_unique_id identifica o comprador entre compras."
       - name: geolocation
+        description: "Registros geográficos; um prefixo de CEP pode aparecer várias vezes."
       - name: order_items
+        description: "Itens identificados pela combinação order_id e order_item_id."
       - name: order_payments
+        description: "Pagamentos identificados pela combinação order_id e payment_sequential."
       - name: order_reviews
+        description: "Avaliações; nem review_id nem order_id são necessariamente únicos."
       - name: orders
+        description: "Cabeçalhos dos pedidos, uma linha por order_id."
       - name: product_category_name_translation
+        description: "Tradução das categorias do português para o inglês."
       - name: products
+        description: "Catálogo de produtos, uma linha por product_id."
       - name: sellers
+        description: "Cadastro de vendedores, uma linha por seller_id."
