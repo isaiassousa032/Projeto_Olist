@@ -88,13 +88,19 @@ O projeto contém **8 marts**: quatro dimensões (`dim_customers`,
 `dim_products`, `dim_sellers`, `dim_geography`) e quatro fatos (`fct_orders`,
 `fct_order_items`, `fct_order_payments`, `fct_order_reviews`).
 
+O **modelo dimensional é híbrido**: combina dimensões analíticas com fatos
+organizados em **cabeçalho e detalhes do pedido**. `fct_orders` representa o
+cabeçalho, com uma linha por pedido, e se relaciona em **1:N** com os fatos de
+itens, pagamentos e avaliações. Essa organização explica a interconexão entre
+tabelas fato e preserva o grão próprio de cada processo.
+
 ### Diagrama dos marts
 
-[![Modelagem dimensional do Olist V2: quatro dimensões, quatro fatos e seis relacionamentos lógicos 1:N](modelagem_dimensional/modelagem_dimensional.png)](modelagem_dimensional/modelagem_dimensional.png)
+[![Modelagem dimensional híbrida do Olist V2: quatro dimensões, quatro fatos e seis relacionamentos lógicos 1:N](modelagem_dimensional/modelagem_dimensional.png)](modelagem_dimensional/modelagem_dimensional.png)
 
 O diagrama foi construído no DrawDB a partir dos SQLs de
-[`models/marts/`](models/marts/), dos testes em
-[`schema.yml`](models/marts/schema.yml) e dos tipos definidos no
+[`models/olist/marts/`](models/olist/marts/), dos testes em
+[`marts_schema.yml`](models/olist/marts/marts_schema.yml) e dos tipos definidos no
 [`script de criação das tabelas RAW`](snowflake_scripts/06_cria_tabelas_raw.sql).
 Abra a imagem para consultar as colunas em alta resolução.
 
@@ -129,8 +135,10 @@ Snowflake; no diagrama, `NUMBER` indica apenas a família numérica desses campo
 | `fct_order_payments` | `(order_id, payment_sequential)` |
 | `fct_order_reviews` | registro de avaliação da origem |
 
-Pagamentos e itens têm grãos diferentes. Para análise no grão de pedido,
-agregue cada fato por `order_id` antes de combiná-los.
+Os relacionamentos entre cabeçalho e detalhes permitem navegar pelo pedido.
+Para combinar medidas de itens, pagamentos e avaliações em uma consulta no
+grão de pedido, agregue cada fato separadamente por `order_id` antes de unir
+os resultados, evitando multiplicação de linhas e valores.
 
 ## 7. Tecnologias utilizadas
 
@@ -142,20 +150,60 @@ agregue cada fato por `order_id` antes de combiná-los.
 
 ## 8. Estrutura do repositório
 
+Principais pastas e arquivos da estrutura atual:
+
 ```text
-├── analyses/                 # Consultas exploratórias
-├── assets/                   # Fundos visuais do relatório
-├── docs/                     # Arquitetura e insights
-├── macros/                   # Macros dbt
-├── modelagem_dimensional/    # ERD dos marts: PNG, SVG e JSON DrawDB
-├── modelagem_fisica/         # Diagrama e SQL de referência
-├── models/                   # Staging, intermediate, marts e YAML
-├── powerbi/                  # Projeto PBIP, relatório e modelo TMDL
-├── snowflake_scripts/        # Setup, stage, RAW e carga
-├── tests/                    # Espaço para testes singulares
+Projeto_Olist_v2/
+├── analyses/
+│   ├── exploracao_customers.sql
+│   └── powerbi_validacao/                 # Consultas, resultados e conferências
+│       ├── 00_controle.dax
+│       ├── 00_controle.tsv
+│       ├── 01_consultas_pendentes.dax
+│       ├── 01_resultados.tsv
+│       ├── conferir_resultados.py
+│       ├── proveniencia.json
+│       ├── resultados_estruturados.json
+│       ├── validacao_insights.ipynb
+│       └── README.md
+├── assets/
+│   └── backgrounds/                      # Fundos das três páginas do relatório
+├── docs/
+│   ├── arquitetura-de-dados-olist-v2.png
+│   ├── insights-negocio.md
+│   └── template-analise-projeto-olist-v2.pdf
+├── macros/
+│   └── generate_schema_name.sql
+├── modelagem_dimensional/                # Modelo híbrido dos marts
+│   ├── modelagem_dimensional.png
+│   ├── olist-v2-modelagem-dimensional.json
+│   └── olist-v2-modelagem-dimensional.svg
+├── modelagem_fisica/                     # Estrutura da camada RAW
+│   ├── Diagrama Modelagem Física Olist v2.png
+│   ├── olist-v2-modelagem-fisica.json
+│   └── olist-v2-modelagem-fisica.sql
+├── models/
+│   └── olist/
+│       ├── staging/                      # 9 modelos SQL, fontes e testes YAML
+│       ├── intermediate/                 # int_olist_customers.sql e testes YAML
+│       └── marts/                        # 4 dimensões, 4 fatos e marts_schema.yml
+├── powerbi/
+│   ├── Olist_Analytics_v2.pbip
+│   ├── Olist_Analytics_v2.Report/
+│   │   ├── definition/                   # Páginas e visuais PBIR
+│   │   └── StaticResources/              # Recursos visuais e temas
+│   └── Olist_Analytics_v2.SemanticModel/
+│       ├── DAXQueries/                   # Consultas salvas no Power BI
+│       └── definition/                   # Tabelas, medidas e relações TMDL
+├── snowflake_scripts/                    # Scripts 01 a 07: setup, RAW e carga
+├── tests/                                # Espaço para testes singulares dbt
+├── .gitignore
 ├── dbt_project.yml
 └── README.md
 ```
+
+As pastas locais `.git/`, `.vscode/`, `venv/`, `target/`, `logs/` e `.pbi/`
+foram omitidas desta visão. As regras de exclusão estão em [`.gitignore`](.gitignore).
 
 ## 9. Qualidade e testes dbt
 
@@ -214,11 +262,13 @@ R$ 2.251.909,54; e pagamentos de R$ 16.008.872,12. Pagamentos excedem itens
 mais frete em R$ 165.318,88 no conjunto completo, evidenciando que esses
 conceitos não devem ser tratados como receita sem regra aprovada.
 
-Os insights detalhados, incluindo perguntas pendentes e fontes, estão em
-[`docs/insights-negocio.md`](docs/insights-negocio.md). Evolução mensal,
-rankings por categoria/vendedor/UF, atrasos, satisfação e relação atraso-nota
-foram deixados como pendentes quando não puderam ser verificados em uma fonte
-de dados ativa.
+Os insights detalhados, incluindo resultados, limitações e fontes, estão em
+[`docs/insights-negocio.md`](docs/insights-negocio.md). As sete análises de
+evolução mensal, categorias, vendedores, UFs, logística,
+satisfação e associação atraso-nota foram verificadas em 23/10/2026 no modelo
+Import aberto do Power BI. Consultas, resultados e conferências estão em
+[`analyses/powerbi_validacao/`](analyses/powerbi_validacao/). A verificação
+descreve o snapshot carregado e não confirma atualização recente do Snowflake.
 
 ## 13. Como executar ou explorar
 
@@ -231,9 +281,9 @@ de dados ativa.
 4. Compile, construa e teste:
 
 ```bash
-dbt compile --select path:models/intermediate path:models/marts
-dbt build --select path:models/intermediate path:models/marts
-dbt test --select path:models/staging
+dbt compile --select path:models/olist/intermediate path:models/olist/marts
+dbt build --select path:models/olist/intermediate path:models/olist/marts
+dbt test --select path:models/olist/staging
 dbt test
 ```
 
@@ -249,14 +299,14 @@ dbt test
 - Valor dos itens, frete e pagamentos têm significados e grãos diferentes.
 - `customer_unique_id` e `review_id` não são chaves únicas nos fatos
   correspondentes.
-- A análise de atraso versus nota, quando executada, será associativa e não
-  provará causalidade.
+- A diferença de notas observada entre entregas no prazo e atrasadas é
+  associativa e não demonstra causalidade.
 - Credenciais, CSVs e resultados de execução não fazem parte do repositório.
 
 ## 15. Melhorias futuras
 
 - Definir com o negócio receita, população de pedidos e regras de cancelamento.
-- Executar as análises pendentes em uma conexão Snowflake/Power BI atualizada.
+- Atualizar o modelo e repetir as análises e reconciliações quando a base mudar.
 - Adicionar testes singulares para regras financeiras e cobertura temporal.
 - Automatizar atualização e monitoramento do pipeline.
 - Acrescentar análise de recompra, coortes, SLA por vendedor e comentários.
