@@ -1,0 +1,152 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 956.78454674126647,
+        "y": 183.33333333333334
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1073.1213881491178,
+            "y": 257.78111173014
+          },
+          "nodeIndex": "Dim_Clientes",
+          "nodeLineageTag": "27bd837d-ad01-4168-8017-a4ba7d9319db",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1378.4789349482176,
+            "y": 246.7672249498064
+          },
+          "nodeIndex": "Dim_Geografia",
+          "nodeLineageTag": "f377d4d6-0f87-4245-a31d-661969999215",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5.1805274368087737,
+            "y": 225.01963264737975
+          },
+          "nodeIndex": "Dim_Produtos",
+          "nodeLineageTag": "6292b166-e253-46b6-ac5a-c9912f6be04d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 394.85767455537115,
+            "y": 269.85113033957805
+          },
+          "nodeIndex": "Dim_Vendedores",
+          "nodeLineageTag": "9f251a24-09fe-48d1-b178-72b20377db00",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1314.3147954509445,
+            "y": 818.99587590266
+          },
+          "nodeIndex": "Fato_Avaliacoes",
+          "nodeLineageTag": "3ad57d7d-2c4c-4115-8304-c4784f7e928c",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 166.33185217722357,
+            "y": 643.785125918087
+          },
+          "nodeIndex": "Fato_Itens_Pedido",
+          "nodeLineageTag": "924c144b-2aa4-49a9-8b7d-9af36ee164d3",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 762.79368797941265,
+            "y": 226.74392102015662
+          },
+          "nodeIndex": "Fato_Pagamentos",
+          "nodeLineageTag": "eb4c8ca8-9f53-4910-be24-243c92141941",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 633.14228498553257,
+            "y": 617.731875661944
+          },
+          "nodeIndex": "Fato_Pedidos",
+          "nodeLineageTag": "22d6a7ca-82f9-4ab2-be5f-8d6bf3a7eaff",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1690.6317408447421,
+            "y": 395.99902865396223
+          },
+          "nodeIndex": "Dim_Calendario",
+          "nodeLineageTag": "eee2a607-6b03-4458-a7c6-fd74a84e7d52",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1969.4512134079334,
+            "y": 345.99466584343338
+          },
+          "nodeIndex": "_Medidas",
+          "nodeLineageTag": "dd9bbfae-81d2-417e-930d-5670f22e3291",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 60,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

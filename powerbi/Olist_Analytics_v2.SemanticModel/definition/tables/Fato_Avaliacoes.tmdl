@@ -1,0 +1,84 @@
+/// Tabela que armazena os registros de avaliações associadas aos pedidos.
+table Fato_Avaliacoes
+	lineageTag: 3ad57d7d-2c4c-4115-8304-c4784f7e928c
+
+	/// Identificador textual da avaliação; não é garantido como identificador global único.
+	column 'ID da Avaliação'
+		dataType: string
+		lineageTag: 2526b965-31ee-426e-b7b3-d5b773c0f023
+		summarizeBy: none
+		sourceColumn: REVIEW_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identificador textual do pedido associado à avaliação.
+	column 'ID do Pedido'
+		dataType: string
+		lineageTag: fc657aad-d149-4854-92c0-fa8ca91e59f0
+		summarizeBy: none
+		sourceColumn: ORDER_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Pontuação da avaliação em uma escala de 1 a 5.
+	column 'Nota da Avaliação'
+		dataType: double
+		formatString: #,##0
+		lineageTag: d9f6d9b5-401d-4ea0-a278-3271853407d0
+		summarizeBy: sum
+		sourceColumn: RATING
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Título opcional do comentário da avaliação; valores nulos são preservados.
+	column 'Título do Comentário'
+		dataType: string
+		lineageTag: 077c7f1e-459d-4f82-9aa1-2246ec7630f5
+		summarizeBy: none
+		sourceColumn: COMMENT_TITLE
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Texto opcional do comentário da avaliação; valores nulos são preservados.
+	column 'Comentário da Avaliação'
+		dataType: string
+		lineageTag: 370714a1-841f-447a-b45b-b0f69bb06e9a
+		summarizeBy: none
+		sourceColumn: COMMENT_MESSAGE
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Data e horário em que a avaliação foi criada; valores nulos são preservados quando aplicável.
+	column 'Data da Avaliação'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f29709c9-0985-4beb-95d3-90574255a7bd
+		summarizeBy: none
+		sourceColumn: REVIEW_CREATED_AT
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Data e horário em que a avaliação foi respondida; valores nulos são preservados quando aplicável.
+	column 'Data da Resposta à Avaliação'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 07db7f17-e2cc-4ba6-9086-eb35367f65e0
+		summarizeBy: none
+		sourceColumn: REVIEW_ANSWERED_AT
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FCT_ORDER_REVIEWS = m
+		mode: import
+		source =
+				let
+				    Fonte = Snowflake.Databases("bgjcngw-vab24223.snowflakecomputing.com","OLIST_WH",[Implementation="2.0", Role="OLIST_DBT_ROLE"]),
+				    OLIST_Database = Fonte{[Name="OLIST",Kind="Database"]}[Data],
+				    MARTS_Schema = OLIST_Database{[Name="MARTS",Kind="Schema"]}[Data],
+				    FCT_ORDER_REVIEWS_Table = MARTS_Schema{[Name="FCT_ORDER_REVIEWS",Kind="Table"]}[Data]
+				in
+				    FCT_ORDER_REVIEWS_Table
+
+	annotation PBI_ResultType = Table

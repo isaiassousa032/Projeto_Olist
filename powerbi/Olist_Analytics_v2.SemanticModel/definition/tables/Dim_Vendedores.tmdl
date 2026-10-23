@@ -1,0 +1,52 @@
+/// Dimensão de vendedores do modelo analítico Olist.
+table Dim_Vendedores
+	lineageTag: 9f251a24-09fe-48d1-b178-72b20377db00
+
+	/// Identificador do vendedor responsável pela oferta do produto.
+	column 'ID do Vendedor'
+		dataType: string
+		lineageTag: 4718bf3c-b6a5-4bfd-abd0-7016fb3a404e
+		summarizeBy: none
+		sourceColumn: SELLER_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Prefixo do código de endereçamento postal do vendedor.
+	column 'Prefixo do CEP'
+		dataType: string
+		lineageTag: 7f8a3737-2747-4187-9133-90748f4253ed
+		summarizeBy: none
+		sourceColumn: ZIP_CODE_PREFIX
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Cidade de localização ou cadastro do vendedor.
+	column Cidade
+		dataType: string
+		lineageTag: 6293708a-c73a-4e6d-bf13-8e07d5918ab3
+		summarizeBy: none
+		sourceColumn: CITY
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unidade federativa de localização ou cadastro do vendedor.
+	column UF
+		dataType: string
+		lineageTag: 1da2c13d-1d09-4c1e-954c-84745b8b53be
+		summarizeBy: none
+		sourceColumn: STATE
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_SELLERS = m
+		mode: import
+		source =
+				let
+				    Fonte = Snowflake.Databases("bgjcngw-vab24223.snowflakecomputing.com","OLIST_WH",[Implementation="2.0", Role="OLIST_DBT_ROLE"]),
+				    OLIST_Database = Fonte{[Name="OLIST",Kind="Database"]}[Data],
+				    MARTS_Schema = OLIST_Database{[Name="MARTS",Kind="Schema"]}[Data],
+				    DIM_SELLERS_Table = MARTS_Schema{[Name="DIM_SELLERS",Kind="Table"]}[Data]
+				in
+				    DIM_SELLERS_Table
+
+	annotation PBI_ResultType = Table

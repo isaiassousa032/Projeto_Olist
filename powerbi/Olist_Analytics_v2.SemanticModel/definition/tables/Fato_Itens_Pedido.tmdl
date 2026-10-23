@@ -1,0 +1,117 @@
+/// Fato de itens de pedido com grão de uma linha por item de cada pedido.
+table Fato_Itens_Pedido
+	lineageTag: 924c144b-2aa4-49a9-8b7d-9af36ee164d3
+
+	/// Identificador único do registro de item do pedido.
+	column 'Chave do Item do Pedido'
+		dataType: string
+		lineageTag: 302e5f37-d6ca-4afe-80f3-3595180d5248
+		summarizeBy: none
+		sourceColumn: ORDER_ITEM_KEY
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identificador textual do pedido ao qual o item pertence.
+	column 'ID do Pedido'
+		dataType: string
+		lineageTag: b8323e01-6bdc-4917-af2a-6803af75fc08
+		summarizeBy: none
+		sourceColumn: ORDER_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sequência inteira que representa a posição do item dentro do pedido.
+	column 'Número do Item no Pedido'
+		dataType: double
+		formatString: #,##0
+		lineageTag: f4ec29c5-e6d6-41b5-a340-a6b242c2841a
+		summarizeBy: count
+		sourceColumn: ORDER_ITEM_ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Identificador textual do cliente associado ao pedido.
+	column 'ID do Cliente'
+		dataType: string
+		lineageTag: 5ca8a1fa-751d-42db-b19c-977ac9bf5ac5
+		summarizeBy: none
+		sourceColumn: CUSTOMER_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Data e horário em que o pedido contendo o item foi realizado.
+	column 'Data da Compra'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6e9e25a0-8593-4b7c-99a8-91be96a02c56
+		summarizeBy: none
+		sourceColumn: PURCHASED_AT
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identificador textual do produto referente ao item.
+	column 'ID do Produto'
+		dataType: string
+		lineageTag: ebd09cd1-c1ab-41bd-8b9b-2b456062a57a
+		summarizeBy: none
+		sourceColumn: PRODUCT_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identificador textual do vendedor responsável pelo item.
+	column 'ID do Vendedor'
+		dataType: string
+		lineageTag: fd512828-53e1-4700-a7ed-dc13ca558aa0
+		summarizeBy: none
+		sourceColumn: SELLER_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Data e horário limite para o vendedor enviar o item à transportadora.
+	column 'Data Limite de Envio'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 48cda30a-0eca-45fa-8d86-8a4713bd3b80
+		summarizeBy: none
+		sourceColumn: SHIPPING_LIMIT_DATE
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Preço unitário do item, sem representar a receita total do pedido.
+	column 'Preço do Item'
+		dataType: double
+		formatString: R$ #,##0.00
+		lineageTag: 84e8e491-fddc-4d67-8801-4c133312111b
+		summarizeBy: sum
+		sourceColumn: ITEM_PRICE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Valor do frete associado ao item, sem representar o valor do pagamento.
+	column 'Valor do Frete'
+		dataType: double
+		formatString: R$ #,##0.00
+		lineageTag: 206ed496-1a3a-4984-98a5-7b1348cd7e4c
+		summarizeBy: sum
+		sourceColumn: FREIGHT_PRICE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FCT_ORDER_ITEMS = m
+		mode: import
+		source =
+				let
+				    Fonte = Snowflake.Databases("bgjcngw-vab24223.snowflakecomputing.com","OLIST_WH",[Implementation="2.0", Role="OLIST_DBT_ROLE"]),
+				    OLIST_Database = Fonte{[Name="OLIST",Kind="Database"]}[Data],
+				    MARTS_Schema = OLIST_Database{[Name="MARTS",Kind="Schema"]}[Data],
+				    FCT_ORDER_ITEMS_Table = MARTS_Schema{[Name="FCT_ORDER_ITEMS",Kind="Table"]}[Data]
+				in
+				    FCT_ORDER_ITEMS_Table
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,89 @@
+/// Fato de pagamentos com grão de uma linha por sequência de pagamento associada a um pedido.
+table Fato_Pagamentos
+	lineageTag: eb4c8ca8-9f53-4910-be24-243c92141941
+
+	/// Identificador único do registro de pagamento associado ao pedido.
+	column 'Chave do Pagamento do Pedido'
+		dataType: string
+		lineageTag: fb752291-095a-4e31-b717-84c1cc685b80
+		summarizeBy: none
+		sourceColumn: ORDER_PAYMENT_KEY
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identificador textual do pedido associado ao pagamento.
+	column 'ID do Pedido'
+		dataType: string
+		lineageTag: 5548f31b-0b90-4b5d-8511-08aae1123141
+		summarizeBy: none
+		sourceColumn: ORDER_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Sequência inteira do pagamento dentro de um pedido; não é um identificador global.
+	column 'Sequência do Pagamento'
+		dataType: double
+		formatString: #,##0
+		lineageTag: 497ad843-fc25-48cc-926e-d6b4a2802d7c
+		summarizeBy: sum
+		sourceColumn: PAYMENT_SEQUENTIAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Data e horário em que o pedido associado ao pagamento foi realizado.
+	column 'Data da Compra'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e7a7da3f-41d4-40bc-b7fb-41992322d808
+		summarizeBy: none
+		sourceColumn: PURCHASED_AT
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Forma utilizada para realizar o pagamento do pedido.
+	column 'Forma de Pagamento'
+		dataType: string
+		lineageTag: b6922d46-081c-4fbc-81c1-5a2d0c51ad1e
+		summarizeBy: none
+		sourceColumn: PAYMENT_TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Quantidade inteira de parcelas utilizadas no pagamento.
+	column 'Quantidade de Parcelas'
+		dataType: double
+		formatString: #,##0
+		lineageTag: 6e7aca8b-d7d3-47dd-b216-407e70afc6eb
+		summarizeBy: sum
+		sourceColumn: INSTALLMENTS_COUNT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Valor efetivamente pago nesta sequência de pagamento; não representa o preço dos produtos nem o valor do frete.
+	column 'Valor do Pagamento'
+		dataType: double
+		formatString: R$ #,##0.00
+		lineageTag: 3fe10c01-fd75-4f01-aea3-5242d683bbe5
+		summarizeBy: sum
+		sourceColumn: PAYMENT_AMOUNT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FCT_ORDER_PAYMENTS = m
+		mode: import
+		source =
+				let
+				    Fonte = Snowflake.Databases("bgjcngw-vab24223.snowflakecomputing.com","OLIST_WH",[Implementation="2.0", Role="OLIST_DBT_ROLE"]),
+				    OLIST_Database = Fonte{[Name="OLIST",Kind="Database"]}[Data],
+				    MARTS_Schema = OLIST_Database{[Name="MARTS",Kind="Schema"]}[Data],
+				    FCT_ORDER_PAYMENTS_Table = MARTS_Schema{[Name="FCT_ORDER_PAYMENTS",Kind="Table"]}[Data]
+				in
+				    FCT_ORDER_PAYMENTS_Table
+
+	annotation PBI_ResultType = Table

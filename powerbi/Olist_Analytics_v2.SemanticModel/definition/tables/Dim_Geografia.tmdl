@@ -1,0 +1,77 @@
+/// Dimensão geográfica com registros consolidados pelo prefixo do CEP.
+table Dim_Geografia
+	lineageTag: f377d4d6-0f87-4245-a31d-661969999215
+
+	/// Prefixo do CEP usado para consolidar os registros geográficos.
+	column 'Prefixo do CEP'
+		dataType: string
+		lineageTag: 42f048c7-0758-4eaf-b0c6-412207354255
+		summarizeBy: none
+		sourceColumn: ZIP_CODE_PREFIX
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Cidade associada ao prefixo do CEP consolidado.
+	column Cidade
+		dataType: string
+		lineageTag: 4e917320-9b03-43ea-be7d-187577b3bfac
+		summarizeBy: none
+		sourceColumn: CITY
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unidade federativa associada ao prefixo do CEP consolidado.
+	column UF
+		dataType: string
+		lineageTag: 7e6f4740-511b-4924-be6b-69acdcd54940
+		summarizeBy: none
+		sourceColumn: STATE
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Latitude geográfica associada ao prefixo do CEP, preservando a precisão original.
+	column Latitude
+		dataType: double
+		lineageTag: 5fb3f4d1-0bd6-45b5-8766-24bdec9077f0
+		summarizeBy: sum
+		sourceColumn: LATITUDE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Longitude geográfica associada ao prefixo do CEP, preservando a precisão original.
+	column Longitude
+		dataType: double
+		lineageTag: b83e2a62-b6d4-469b-950f-2c21f03c2f39
+		summarizeBy: sum
+		sourceColumn: LONGITUDE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Quantidade de registros geográficos consolidados pelo prefixo do CEP.
+	column 'Quantidade de Registros Geográficos'
+		dataType: double
+		formatString: #,##0
+		lineageTag: 83e6b925-8995-4c8b-9d63-6f44b5f9ed43
+		summarizeBy: sum
+		sourceColumn: LOCATION_COUNT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition DIM_GEOGRAPHY = m
+		mode: import
+		source =
+				let
+				    Fonte = Snowflake.Databases("bgjcngw-vab24223.snowflakecomputing.com","OLIST_WH",[Implementation="2.0", Role="OLIST_DBT_ROLE"]),
+				    OLIST_Database = Fonte{[Name="OLIST",Kind="Database"]}[Data],
+				    MARTS_Schema = OLIST_Database{[Name="MARTS",Kind="Schema"]}[Data],
+				    DIM_GEOGRAPHY_Table = MARTS_Schema{[Name="DIM_GEOGRAPHY",Kind="Table"]}[Data]
+				in
+				    DIM_GEOGRAPHY_Table
+
+	annotation PBI_ResultType = Table

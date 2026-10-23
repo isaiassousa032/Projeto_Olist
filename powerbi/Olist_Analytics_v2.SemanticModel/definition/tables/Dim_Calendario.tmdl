@@ -1,0 +1,104 @@
+/// Dimensão calendário para análises temporais baseadas na Data da Compra.
+table Dim_Calendario
+	lineageTag: eee2a607-6b03-4458-a7c6-fd74a84e7d52
+	dataCategory: Time
+
+	/// Data completa do calendário, abrangendo anos completos desde o início até o fim das compras.
+	column Data
+		isKey
+		formatString: dd/MM/yyyy
+		lineageTag: 079e513b-2cd4-4eb3-a5e0-df5382ec5f11
+		isNameInferred
+		sourceColumn: [Data]
+
+	/// Ano da data do calendário.
+	column Ano
+		formatString: #,##0
+		lineageTag: 2fa9a778-16aa-4a6f-83c5-831be233e05d
+		isNameInferred
+		sourceColumn: [Ano]
+
+	/// Número do mês, de 1 a 12.
+	column 'Numero do Mes'
+		formatString: #,##0
+		lineageTag: 7cd0709a-4b8d-40c6-8437-b3dcd083567f
+		isNameInferred
+		sourceColumn: [Numero do Mes]
+
+	/// Nome do mês em português, ordenado pelo número do mês.
+	column Mes
+		lineageTag: bd496993-ab86-4e3e-a3f6-f3ba953f6437
+		isNameInferred
+		sourceColumn: [Mes]
+		sortByColumn: 'Numero do Mes'
+
+	/// Ano e mês no formato yyyy-MM, ordenado cronologicamente por AnoMesOrdem.
+	column Ano-Mes
+		lineageTag: 239dab5d-6cf4-43cb-8718-7f5566edef03
+		isNameInferred
+		sourceColumn: [Ano-Mes]
+		sortByColumn: AnoMesOrdem
+
+	/// Chave numérica de ordenação para Ano-Mes.
+	column AnoMesOrdem
+		formatString: #,##0
+		lineageTag: b7dd53a6-dfb8-4cd4-95a1-687465b16765
+		isNameInferred
+		sourceColumn: [AnoMesOrdem]
+
+	/// Trimestre do ano no formato T1 a T4.
+	column Trimestre
+		lineageTag: c0d68669-d921-4434-8541-d75e901cc32e
+		isNameInferred
+		sourceColumn: [Trimestre]
+
+	/// Dia do mês.
+	column Dia
+		formatString: #,##0
+		lineageTag: 1e03b82c-2755-49a7-af13-1236f02e32ba
+		isNameInferred
+		sourceColumn: [Dia]
+
+	/// Nome do dia da semana em português, ordenado pelo número do dia.
+	column 'Dia da Semana'
+		lineageTag: e840a1fc-a177-4df6-9bc9-b2575a301397
+		isNameInferred
+		sourceColumn: [Dia da Semana]
+		sortByColumn: 'Numero do Dia da Semana'
+
+	/// Número do dia da semana no padrão ISO, de 1 a 7.
+	column 'Numero do Dia da Semana'
+		formatString: #,##0
+		lineageTag: 65cd2640-ea4c-4a3d-9084-5a0697e5332f
+		isNameInferred
+		sourceColumn: [Numero do Dia da Semana]
+
+	partition Dim_Calendario = calculated
+		mode: import
+		source =
+				VAR DataMinima =
+				    MIN('Fato_Pedidos'[Data da Compra])
+				VAR DataMaxima =
+				    MAX('Fato_Pedidos'[Data da Compra])
+				VAR DataInicial =
+				    DATE(YEAR(DataMinima), 1, 1)
+				VAR DataFinal =
+				    DATE(YEAR(DataMaxima), 12, 31)
+				VAR Datas =
+				    SELECTCOLUMNS(
+				        CALENDAR(DataInicial, DataFinal),
+				        "Data", [Date]
+				    )
+				RETURN
+				ADDCOLUMNS(
+				    Datas,
+				    "Ano", YEAR([Data]),
+				    "Numero do Mes", MONTH([Data]),
+				    "Mes", FORMAT([Data], "mmmm", "pt-BR"),
+				    "Ano-Mes", FORMAT([Data], "yyyy-MM"),
+				    "AnoMesOrdem", YEAR([Data]) * 100 + MONTH([Data]),
+				    "Trimestre", "T" & QUARTER([Data]),
+				    "Dia", DAY([Data]),
+				    "Dia da Semana", FORMAT([Data], "dddd", "pt-BR"),
+				    "Numero do Dia da Semana", WEEKDAY([Data], 2)
+				)

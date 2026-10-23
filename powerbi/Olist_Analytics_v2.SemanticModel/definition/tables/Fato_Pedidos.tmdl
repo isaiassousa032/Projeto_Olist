@@ -1,0 +1,110 @@
+/// Fato de pedidos com grão de uma linha por pedido.
+table Fato_Pedidos
+	lineageTag: 22d6a7ca-82f9-4ab2-be5f-8d6bf3a7eaff
+
+	/// Identificador textual único do pedido.
+	column 'ID do Pedido'
+		dataType: string
+		lineageTag: ed686ae0-2289-47a6-a8aa-1ecf50362c1b
+		summarizeBy: none
+		sourceColumn: ORDER_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identificador textual do cliente associado ao pedido.
+	column 'ID do Cliente'
+		dataType: string
+		lineageTag: bb7edac9-5ec2-49da-8eae-8335d738de23
+		summarizeBy: none
+		sourceColumn: CUSTOMER_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Status do pedido no processo de compra e entrega.
+	column 'Status do Pedido'
+		dataType: string
+		lineageTag: dba51ae3-a4ac-41b7-b8b4-2e47cdfdc5d3
+		summarizeBy: none
+		sourceColumn: STATUS
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Data e horário em que o pedido foi realizado.
+	column 'Data da Compra'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 83b895ef-2d19-40ea-a63f-0699199b4cea
+		summarizeBy: none
+		sourceColumn: PURCHASED_AT
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Data e horário em que o pagamento do pedido foi aprovado.
+	column 'Data de Aprovação'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e18588c6-7ce9-49f5-b75d-8ae460bdb2a6
+		summarizeBy: none
+		sourceColumn: APPROVED_AT
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Data e horário em que o pedido foi entregue à transportadora.
+	column 'Data de Entrega à Transportadora'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 26bc744c-6666-4ab4-becc-79d4c322c7bb
+		summarizeBy: none
+		sourceColumn: DELIVERED_TO_CARRIER_AT
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Data e horário em que o pedido foi entregue ao cliente.
+	column 'Data de Entrega ao Cliente'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 41c579c5-2aec-4adf-9249-952e2beb1c34
+		summarizeBy: none
+		sourceColumn: DELIVERED_TO_CUSTOMER_AT
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Data e horário estimados para a entrega do pedido ao cliente.
+	column 'Data Prevista de Entrega'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 01b308fe-4d14-4196-8769-5da220ff4679
+		summarizeBy: none
+		sourceColumn: ESTIMATED_DELIVERY_AT
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Data da compra normalizada para o dia, sem alterar a coluna original que contém data e horário.
+	column 'Data da Compra (Dia)' =
+			VAR DataOriginal = 'Fato_Pedidos'[Data da Compra]
+			RETURN
+			IF(
+			    ISBLANK(DataOriginal),
+			    BLANK(),
+			    DATE(
+			        YEAR(DataOriginal),
+			        MONTH(DataOriginal),
+			        DAY(DataOriginal)
+			    )
+			)
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: dc9e3643-d9cd-4332-88cb-24bacdcf21c8
+
+	partition FCT_ORDERS = m
+		mode: import
+		source =
+				let
+				    Fonte = Snowflake.Databases("bgjcngw-vab24223.snowflakecomputing.com","OLIST_WH",[Implementation="2.0", Role="OLIST_DBT_ROLE"]),
+				    OLIST_Database = Fonte{[Name="OLIST",Kind="Database"]}[Data],
+				    MARTS_Schema = OLIST_Database{[Name="MARTS",Kind="Schema"]}[Data],
+				    FCT_ORDERS_Table = MARTS_Schema{[Name="FCT_ORDERS",Kind="Table"]}[Data]
+				in
+				    FCT_ORDERS_Table
+
+	annotation PBI_ResultType = Table

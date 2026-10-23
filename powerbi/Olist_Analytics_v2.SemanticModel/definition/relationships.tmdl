@@ -1,0 +1,27 @@
+relationship 'Dim_Clientes_ID do Cliente_Fato_Pedidos_ID do Cliente'
+	fromColumn: Fato_Pedidos.'ID do Cliente'
+	toColumn: Dim_Clientes.'ID do Cliente'
+
+relationship 'Fato_Pedidos_ID do Pedido_Fato_Itens_Pedido_ID do Pedido'
+	fromColumn: Fato_Itens_Pedido.'ID do Pedido'
+	toColumn: Fato_Pedidos.'ID do Pedido'
+
+relationship 'Fato_Pedidos_ID do Pedido_Fato_Pagamentos_ID do Pedido'
+	fromColumn: Fato_Pagamentos.'ID do Pedido'
+	toColumn: Fato_Pedidos.'ID do Pedido'
+
+relationship 'Fato_Pedidos_ID do Pedido_Fato_Avaliacoes_ID do Pedido'
+	fromColumn: Fato_Avaliacoes.'ID do Pedido'
+	toColumn: Fato_Pedidos.'ID do Pedido'
+
+relationship 'Dim_Produtos_ID do Produto_Fato_Itens_Pedido_ID do Produto'
+	fromColumn: Fato_Itens_Pedido.'ID do Produto'
+	toColumn: Dim_Produtos.'ID do Produto'
+
+relationship 'Dim_Vendedores_ID do Vendedor_Fato_Itens_Pedido_ID do Vendedor'
+	fromColumn: Fato_Itens_Pedido.'ID do Vendedor'
+	toColumn: Dim_Vendedores.'ID do Vendedor'
+
+relationship 'Dim_Calendario_Data_Fato_Pedidos_Data da Compra (Dia)'
+	fromColumn: Fato_Pedidos.'Data da Compra (Dia)'
+	toColumn: Dim_Calendario.Data

@@ -1,0 +1,61 @@
+/// Dimensão de clientes do modelo analítico Olist.
+table Dim_Clientes
+	lineageTag: 27bd837d-ad01-4168-8017-a4ba7d9319db
+
+	/// Identificador do cliente associado ao pedido.
+	column 'ID do Cliente'
+		dataType: string
+		lineageTag: 16f87cb5-8167-4eff-bf38-f1313ce82aa4
+		summarizeBy: none
+		sourceColumn: CUSTOMER_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identificador único do comprador na base de clientes.
+	column 'ID Único do Comprador'
+		dataType: string
+		lineageTag: eb6e2a74-7a9e-4159-8ec0-8948966c0968
+		summarizeBy: none
+		sourceColumn: CUSTOMER_UNIQUE_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Prefixo do código de endereçamento postal do cliente.
+	column 'Prefixo do CEP'
+		dataType: string
+		lineageTag: 3d039165-0ef2-43ba-ad8d-1e70b7b060c9
+		summarizeBy: none
+		sourceColumn: ZIP_CODE
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Cidade de residência ou cadastro do cliente.
+	column Cidade
+		dataType: string
+		lineageTag: 977ea036-dd87-4121-8f87-c9278bc7d148
+		summarizeBy: none
+		sourceColumn: CITY
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unidade federativa de residência ou cadastro do cliente.
+	column UF
+		dataType: string
+		lineageTag: 1c3ce0ca-285e-49b9-8d55-6f8fd51a3dfb
+		summarizeBy: none
+		sourceColumn: STATE
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DIM_CUSTOMERS = m
+		mode: import
+		source =
+				let
+				    Fonte = Snowflake.Databases("bgjcngw-vab24223.snowflakecomputing.com","OLIST_WH",[Implementation="2.0", Role="OLIST_DBT_ROLE"]),
+				    OLIST_Database = Fonte{[Name="OLIST",Kind="Database"]}[Data],
+				    MARTS_Schema = OLIST_Database{[Name="MARTS",Kind="Schema"]}[Data],
+				    DIM_CUSTOMERS_Table = MARTS_Schema{[Name="DIM_CUSTOMERS",Kind="Table"]}[Data]
+				in
+				    DIM_CUSTOMERS_Table
+
+	annotation PBI_ResultType = Table

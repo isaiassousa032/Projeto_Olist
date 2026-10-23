@@ -1,0 +1,127 @@
+/// Dimensão de produtos com categorias em português e inglês e atributos físicos e descritivos.
+table Dim_Produtos
+	lineageTag: 6292b166-e253-46b6-ac5a-c9912f6be04d
+
+	/// Identificador único do produto.
+	column 'ID do Produto'
+		dataType: string
+		lineageTag: 989dd28b-f028-40f8-823a-57c8076e87b2
+		summarizeBy: none
+		sourceColumn: PRODUCT_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Categoria do produto em português, mantida como atributo distinto.
+	column 'Categoria do Produto (Português)'
+		dataType: string
+		lineageTag: b681f1ad-f2aa-4ddb-ac3d-723358263b55
+		summarizeBy: none
+		sourceColumn: CATEGORY_NAME_PT
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Categoria do produto em inglês, mantida como atributo distinto.
+	column 'Categoria do Produto (Inglês)'
+		dataType: string
+		lineageTag: 5247a27b-9a7e-495d-a490-b092249afdb7
+		summarizeBy: none
+		sourceColumn: CATEGORY_NAME_EN
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Quantidade de caracteres no nome do produto.
+	column 'Comprimento do Nome'
+		dataType: double
+		formatString: #,##0
+		lineageTag: cfae2d55-3e22-498c-a760-3f1c0b51b53a
+		summarizeBy: sum
+		sourceColumn: NAME_LENGTH
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Quantidade de caracteres na descrição do produto.
+	column 'Comprimento da Descrição'
+		dataType: double
+		formatString: #,##0
+		lineageTag: 6e4333dc-2302-4864-a5cb-0c9b16e28970
+		summarizeBy: sum
+		sourceColumn: DESCRIPTION_LENGTH
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Quantidade de fotos associadas ao produto.
+	column 'Quantidade de Fotos'
+		dataType: double
+		formatString: #,##0
+		lineageTag: e4476460-0643-4a81-8372-e5f57a1658c2
+		summarizeBy: sum
+		sourceColumn: PHOTOS_COUNT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Peso do produto em gramas.
+	column 'Peso (g)'
+		dataType: double
+		formatString: #,##0
+		lineageTag: 5ef15226-c390-4397-a2fa-cdd1a56f13c6
+		summarizeBy: sum
+		sourceColumn: WEIGHT_G
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Comprimento do produto em centímetros; valor original preservado.
+	column 'Comprimento (cm)'
+		dataType: double
+		formatString: #,##0
+		lineageTag: edbf98a3-8b4c-4475-8311-b1d485432aa5
+		summarizeBy: sum
+		sourceColumn: LENGTH_CM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Altura do produto em centímetros; valor original preservado.
+	column 'Altura (cm)'
+		dataType: double
+		formatString: #,##0
+		lineageTag: 58c40baf-d5d4-47a7-a220-9cd2e8fabf8c
+		summarizeBy: sum
+		sourceColumn: HEIGHT_CM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Largura do produto em centímetros; valor original preservado.
+	column 'Largura (cm)'
+		dataType: double
+		formatString: #,##0
+		lineageTag: 2c4110f9-af7d-4212-9e53-fe7677c88bfb
+		summarizeBy: sum
+		sourceColumn: WIDTH_CM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition DIM_PRODUCTS = m
+		mode: import
+		source =
+				let
+				    Fonte = Snowflake.Databases("bgjcngw-vab24223.snowflakecomputing.com","OLIST_WH",[Implementation="2.0", Role="OLIST_DBT_ROLE"]),
+				    OLIST_Database = Fonte{[Name="OLIST",Kind="Database"]}[Data],
+				    MARTS_Schema = OLIST_Database{[Name="MARTS",Kind="Schema"]}[Data],
+				    DIM_PRODUCTS_Table = MARTS_Schema{[Name="DIM_PRODUCTS",Kind="Table"]}[Data]
+				in
+				    DIM_PRODUCTS_Table
+
+	annotation PBI_ResultType = Table

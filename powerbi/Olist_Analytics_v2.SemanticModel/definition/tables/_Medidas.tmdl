@@ -1,0 +1,400 @@
+/// Tabela centralizada para todas as medidas DAX do modelo.
+table _Medidas
+	lineageTag: dd9bbfae-81d2-417e-930d-5670f22e3291
+
+	/// Quantidade de registros de pedidos no contexto atual. Inclui todos os status e não representa automaticamente pedidos concluídos.
+	measure 'Pedidos Registrados' = COUNTROWS('Fato_Pedidos')
+		formatString: #,##0
+		displayFolder: 01 - Pedidos
+		lineageTag: e183d325-e9b7-4d9a-a9d0-a3a8d0b5609a
+
+	/// Quantidade de pedidos distintos que possuem itens no contexto atual, respeitando filtros de produtos e vendedores.
+	measure 'Pedidos com Itens' = DISTINCTCOUNT('Fato_Itens_Pedido'[ID do Pedido])
+		formatString: #,##0
+		displayFolder: 01 - Pedidos
+		lineageTag: 7d6fa190-e4e8-48e1-a291-2222330301d1
+
+	/// Quantidade de registros de itens de pedido no contexto atual; não representa pedidos distintos.
+	measure 'Itens de Pedido' = COUNTROWS('Fato_Itens_Pedido')
+		formatString: #,##0
+		displayFolder: 01 - Pedidos
+		lineageTag: 565386b7-c79d-437c-8b47-b4669d77ca70
+
+	/// Soma dos preços dos itens no contexto atual. Não deve ser interpretada automaticamente como receita líquida ou faturamento realizado.
+	measure 'Valor dos Itens' = SUM('Fato_Itens_Pedido'[Preço do Item])
+		formatString: R$ #,##0.00
+		displayFolder: 02 - Vendas e Frete
+		lineageTag: f093c00c-dd30-4a44-9ab9-cba7634ff743
+
+	/// Soma dos valores de frete associados aos itens no contexto atual.
+	measure 'Valor do Frete' = SUM('Fato_Itens_Pedido'[Valor do Frete])
+		formatString: R$ #,##0.00
+		displayFolder: 02 - Vendas e Frete
+		lineageTag: f91dcd64-a4e9-4739-acbd-e84d9bd549e6
+
+	/// Soma do valor dos itens com o valor do frete no contexto atual; não equivale necessariamente ao valor dos pagamentos.
+	measure 'Valor dos Itens + Frete' = [Valor dos Itens] + [Valor do Frete]
+		formatString: R$ #,##0.00
+		displayFolder: 02 - Vendas e Frete
+		lineageTag: 5d5bf6de-e98e-4849-8124-2ea4327f4083
+
+	/// Valor médio dos itens por pedido distinto que possui itens no contexto atual.
+	measure 'Ticket Médio dos Itens' =
+			DIVIDE(
+			    [Valor dos Itens],
+			    [Pedidos com Itens]
+			)
+		formatString: R$ #,##0.00
+		displayFolder: 02 - Vendas e Frete
+		lineageTag: 96648d14-d72c-4e54-95ca-3c5fc718330c
+
+	/// Quantidade de registros de pagamentos no contexto atual.
+	measure 'Pagamentos Registrados' = COUNTROWS('Fato_Pagamentos')
+		formatString: #,##0
+		displayFolder: 03 - Pagamentos
+		lineageTag: c14af812-c111-4c9f-b2af-eec5d3170ad4
+
+	/// Quantidade de pedidos distintos com pagamento registrado no contexto atual.
+	measure 'Pedidos com Pagamento' = DISTINCTCOUNT('Fato_Pagamentos'[ID do Pedido])
+		formatString: #,##0
+		displayFolder: 03 - Pagamentos
+		lineageTag: ae91cb57-4f8b-4461-9fff-19182b4171fa
+
+	/// Soma dos valores pagos no contexto atual. Não é equivalente ao valor dos itens mais frete.
+	measure 'Valor dos Pagamentos' = SUM('Fato_Pagamentos'[Valor do Pagamento])
+		formatString: R$ #,##0.00
+		displayFolder: 03 - Pagamentos
+		lineageTag: 7b426d54-d7e7-4246-a7d6-052aa8a272a9
+
+	/// Quantidade de registros de avaliações no contexto atual, sem deduplicação.
+	measure 'Avaliações Registradas' = COUNTROWS('Fato_Avaliacoes')
+		formatString: #,##0
+		displayFolder: 04 - Satisfação
+		lineageTag: adee8b25-5df3-4d9e-b677-b86c8b3e343a
+
+	/// Quantidade de pedidos distintos com avaliação registrada no contexto atual.
+	measure 'Pedidos Avaliados' = DISTINCTCOUNT('Fato_Avaliacoes'[ID do Pedido])
+		formatString: #,##0
+		displayFolder: 04 - Satisfação
+		lineageTag: 20837b32-feaa-46da-b9cd-aa86ad23bfa8
+
+	/// Média das notas das linhas de avaliação no contexto atual, sem deduplicação.
+	measure 'Nota Média das Avaliações' = AVERAGE('Fato_Avaliacoes'[Nota da Avaliação])
+		formatString: 0.00
+		displayFolder: 04 - Satisfação
+		lineageTag: a4518f47-1510-4827-9ea9-ecaca9503e25
+
+	/// Quantidade de pedidos registrados cujo status é delivered no contexto atual. A medida não representa necessariamente pedidos com entrega física validada além do status de origem.
+	measure 'Pedidos Entregues' =
+			CALCULATE(
+			    [Pedidos Registrados],
+			    KEEPFILTERS(
+			        'Fato_Pedidos'[Status do Pedido] = "delivered"
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 01 - Pedidos
+		lineageTag: cdfa937e-5900-47ef-8ce3-5896ef5651dd
+
+	/// Quantidade de pedidos registrados cujo status é canceled no contexto atual.
+	measure 'Pedidos Cancelados' =
+			CALCULATE(
+			    [Pedidos Registrados],
+			    KEEPFILTERS(
+			        'Fato_Pedidos'[Status do Pedido] = "canceled"
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 01 - Pedidos
+		lineageTag: a36649cc-9c01-4775-a80e-4d105ef98c6e
+
+	/// Proporção de pedidos com status canceled em relação ao total de pedidos registrados no contexto filtrado.
+	measure 'Taxa de Cancelamento' =
+			DIVIDE(
+			    [Pedidos Cancelados],
+			    [Pedidos Registrados]
+			)
+		formatString: 0.00%
+		displayFolder: 01 - Pedidos
+		lineageTag: e96c95a4-fa66-44e1-9823-8894b59e7888
+
+	/// Soma dos preços dos itens associados a pedidos com status delivered no contexto atual. Não representa automaticamente receita líquida, faturamento realizado ou caixa recebido.
+	measure 'Valor dos Itens Entregues' =
+			CALCULATE(
+			    [Valor dos Itens],
+			    KEEPFILTERS(
+			        'Fato_Pedidos'[Status do Pedido] = "delivered"
+			    )
+			)
+		formatString: R$ #,##0.00
+		displayFolder: 02 - Vendas e Frete
+		lineageTag: 602c664f-8f8c-4d2a-b2eb-c7dbc83ffb2b
+
+	/// Quantidade de pedidos distintos com itens associados e status delivered no contexto atual, respeitando os filtros aplicados às tabelas relacionadas.
+	measure 'Pedidos Entregues com Itens' =
+			CALCULATE(
+			    [Pedidos com Itens],
+			    KEEPFILTERS(
+			        'Fato_Pedidos'[Status do Pedido] = "delivered"
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 02 - Vendas e Frete
+		lineageTag: 1675116b-c673-41ae-9a20-0782e32527e9
+
+	/// Valor médio dos itens por pedido distinto com itens entre os pedidos de status delivered no contexto atual. Não representa receita líquida nem caixa recebido.
+	measure 'Ticket Médio dos Itens Entregues' =
+			DIVIDE(
+			    [Valor dos Itens Entregues],
+			    [Pedidos Entregues com Itens]
+			)
+		formatString: R$ #,##0.00
+		displayFolder: 02 - Vendas e Frete
+		lineageTag: ae1c778a-4245-47e9-b971-07377c4f643f
+
+	/// Quantidade de registros de avaliação com nota entre 4 e 5, inclusive, no contexto atual. A contagem é por registro e não por pedido único.
+	measure 'Avaliações Positivas' =
+			COUNTROWS(
+			    FILTER(
+			        'Fato_Avaliacoes',
+			        'Fato_Avaliacoes'[Nota da Avaliação] >= 4
+			            && 'Fato_Avaliacoes'[Nota da Avaliação] <= 5
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 04 - Satisfação
+		lineageTag: 6cb4e370-9c91-4de0-9c42-f882173dcb91
+
+	/// Proporção de registros de avaliação com nota entre 4 e 5 em relação ao total de avaliações registradas no contexto atual. Não é calculada por pedidos distintos.
+	measure 'Taxa de Avaliações Positivas' =
+			DIVIDE(
+			    [Avaliações Positivas],
+			    [Avaliações Registradas]
+			)
+		formatString: 0.00%
+		displayFolder: 04 - Satisfação
+		lineageTag: d81724a1-4dde-430c-8e4f-d9ef26529d0d
+
+	/// Quantidade de pedidos delivered com data real de entrega e data prevista disponíveis no contexto atual. É o denominador das medidas de pontualidade.
+	measure 'Pedidos com Entrega e Previsão' =
+			COUNTROWS(
+			    FILTER(
+			        'Fato_Pedidos',
+			        'Fato_Pedidos'[Status do Pedido] = "delivered"
+			            && NOT ISBLANK(
+			                'Fato_Pedidos'[Data de Entrega ao Cliente]
+			            )
+			            && NOT ISBLANK(
+			                'Fato_Pedidos'[Data Prevista de Entrega]
+			            )
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 05 - Logística
+		lineageTag: 2722c83b-fa92-47de-bab9-878e7c0c4adc
+
+	/// Quantidade de pedidos delivered com datas real e prevista disponíveis cuja data de entrega, ignorando o horário, é igual ou anterior à data prevista.
+	measure 'Pedidos Entregues no Prazo' =
+			COUNTROWS(
+			    FILTER(
+			        'Fato_Pedidos',
+			        'Fato_Pedidos'[Status do Pedido] = "delivered"
+			            && NOT ISBLANK(
+			                'Fato_Pedidos'[Data de Entrega ao Cliente]
+			            )
+			            && NOT ISBLANK(
+			                'Fato_Pedidos'[Data Prevista de Entrega]
+			            )
+			            && INT(
+			                'Fato_Pedidos'[Data de Entrega ao Cliente]
+			            ) <= INT(
+			                'Fato_Pedidos'[Data Prevista de Entrega]
+			            )
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 05 - Logística
+		lineageTag: 6ca0c65d-4415-4f19-8ef7-45b110488a59
+
+	/// Quantidade de pedidos delivered com datas real e prevista disponíveis que não foram entregues no prazo. É calculada como a diferença entre o denominador e os pedidos pontuais.
+	measure 'Pedidos Entregues Atrasados' =
+			[Pedidos com Entrega e Previsão]
+			    - [Pedidos Entregues no Prazo]
+		formatString: #,##0
+		displayFolder: 05 - Logística
+		lineageTag: bf9c9215-501f-4687-b997-77e8836662eb
+
+	/// Proporção de pedidos delivered com datas real e prevista disponíveis que foram entregues até a data prevista, ignorando o horário.
+	measure 'Taxa de Entrega no Prazo' =
+			DIVIDE(
+			    [Pedidos Entregues no Prazo],
+			    [Pedidos com Entrega e Previsão]
+			)
+		formatString: 0.00%
+		displayFolder: 05 - Logística
+		lineageTag: 845e378f-0e7e-4543-b508-bccab75697af
+
+	/// Tempo médio, em dias corridos com frações de dia, entre a compra e a entrega dos pedidos delivered com datas válidas. Datas ausentes e durações negativas são excluídas.
+	measure 'Tempo Médio de Entrega (Dias)' =
+			AVERAGEX(
+			    FILTER(
+			        'Fato_Pedidos',
+			        'Fato_Pedidos'[Status do Pedido] = "delivered"
+			            && NOT ISBLANK(
+			                'Fato_Pedidos'[Data da Compra]
+			            )
+			            && NOT ISBLANK(
+			                'Fato_Pedidos'[Data de Entrega ao Cliente]
+			            )
+			            && 'Fato_Pedidos'[Data de Entrega ao Cliente]
+			                >= 'Fato_Pedidos'[Data da Compra]
+			    ),
+			    'Fato_Pedidos'[Data de Entrega ao Cliente]
+			        - 'Fato_Pedidos'[Data da Compra]
+			)
+		formatString: 0.0
+		displayFolder: 05 - Logística
+		lineageTag: 0d9cb2e7-2b56-4c07-8775-b55d027f3346
+
+	/// Valor dos itens associados a pedidos delivered no mês calendário anterior ao período selecionado, usando a Data da Compra. Retorna vazio fora de um único Ano-Mes ou quando não há período anterior válido.
+	measure 'Valor dos Itens Entregues Mês Anterior' =
+			IF(
+			    HASONEVALUE('Dim_Calendario'[Ano-Mes]),
+			    CALCULATE(
+			        [Valor dos Itens Entregues],
+			        DATEADD('Dim_Calendario'[Data], -1, MONTH)
+			    )
+			)
+		formatString: R$ #,##0.00
+		displayFolder: 06 - Inteligência Temporal
+		lineageTag: b4dd90bc-5c27-4d2c-9e6e-6985fb1034f2
+
+	/// Variação percentual mensal do valor dos itens entregues entre o mês atual e o mês anterior, baseada na Data da Compra. Só é apresentada para um único Ano-Mes com denominador válido.
+	measure 'Variação Mensal Valor Entregue (%)' =
+			VAR Atual = [Valor dos Itens Entregues]
+			VAR Anterior = [Valor dos Itens Entregues Mês Anterior]
+			RETURN
+			IF(
+			    HASONEVALUE('Dim_Calendario'[Ano-Mes])
+			        && NOT ISBLANK(Anterior)
+			        && Anterior <> 0,
+			    DIVIDE(Atual - Anterior, Anterior)
+			)
+		formatString: 0.00%
+		displayFolder: 06 - Inteligência Temporal
+		lineageTag: 6396fa13-3fff-4522-af2e-6fb6beda4ff5
+
+	/// Valor dos itens associados a pedidos delivered no mesmo período do ano anterior, usando a Data da Compra. Retorna vazio fora de um único Ano-Mes ou quando não há período anterior válido.
+	measure 'Valor dos Itens Entregues Ano Anterior' =
+			IF(
+			    HASONEVALUE('Dim_Calendario'[Ano-Mes]),
+			    CALCULATE(
+			        [Valor dos Itens Entregues],
+			        SAMEPERIODLASTYEAR('Dim_Calendario'[Data])
+			    )
+			)
+		formatString: R$ #,##0.00
+		displayFolder: 06 - Inteligência Temporal
+		lineageTag: 5655ba1c-e034-4944-b02a-93898e321755
+
+	/// Variação percentual anual do valor dos itens entregues entre o mês atual e o mesmo mês do ano anterior, baseada na Data da Compra. Só é apresentada para um único Ano-Mes com denominador válido.
+	measure 'Variação Anual Valor Entregue (%)' =
+			VAR Atual = [Valor dos Itens Entregues]
+			VAR Anterior = [Valor dos Itens Entregues Ano Anterior]
+			RETURN
+			IF(
+			    HASONEVALUE('Dim_Calendario'[Ano-Mes])
+			        && NOT ISBLANK(Anterior)
+			        && Anterior <> 0,
+			    DIVIDE(Atual - Anterior, Anterior)
+			)
+		formatString: 0.00%
+		displayFolder: 06 - Inteligência Temporal
+		lineageTag: fcdcdfbd-0ce5-4bfd-9068-9242b0c749d6
+
+	/// Quantidade de pedidos delivered no mês calendário anterior ao período selecionado, usando a Data da Compra. Retorna vazio fora de um único Ano-Mes ou quando não há período anterior válido.
+	measure 'Pedidos Entregues Mês Anterior' =
+			IF(
+			    HASONEVALUE('Dim_Calendario'[Ano-Mes]),
+			    CALCULATE(
+			        [Pedidos Entregues],
+			        DATEADD('Dim_Calendario'[Data], -1, MONTH)
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 06 - Inteligência Temporal
+		lineageTag: f2f3ebf6-f74b-4e8a-863f-42d08e24bea1
+
+	/// Variação percentual mensal da quantidade de pedidos delivered entre o mês atual e o mês anterior, baseada na Data da Compra. Só é apresentada para um único Ano-Mes com denominador válido.
+	measure 'Variação Mensal Pedidos Entregues (%)' =
+			VAR Atual = [Pedidos Entregues]
+			VAR Anterior = [Pedidos Entregues Mês Anterior]
+			RETURN
+			IF(
+			    HASONEVALUE('Dim_Calendario'[Ano-Mes])
+			        && NOT ISBLANK(Anterior)
+			        && Anterior <> 0,
+			    DIVIDE(Atual - Anterior, Anterior)
+			)
+		formatString: 0.00%
+		displayFolder: 06 - Inteligência Temporal
+		lineageTag: 577d898f-4a34-44c0-b885-86da15a2148f
+
+	/// Quantidade de pedidos delivered no mesmo período do ano anterior, usando a Data da Compra. Retorna vazio fora de um único Ano-Mes ou quando não há período anterior válido.
+	measure 'Pedidos Entregues Ano Anterior' =
+			IF(
+			    HASONEVALUE('Dim_Calendario'[Ano-Mes]),
+			    CALCULATE(
+			        [Pedidos Entregues],
+			        SAMEPERIODLASTYEAR('Dim_Calendario'[Data])
+			    )
+			)
+		formatString: #,##0
+		displayFolder: 06 - Inteligência Temporal
+		lineageTag: 62fd46e8-1553-4a7d-82f2-9bce6a782f63
+
+	/// Variação percentual anual da quantidade de pedidos delivered entre o mês atual e o mesmo mês do ano anterior, baseada na Data da Compra. Só é apresentada para um único Ano-Mes com denominador válido.
+	measure 'Variação Anual Pedidos Entregues (%)' =
+			VAR Atual = [Pedidos Entregues]
+			VAR Anterior = [Pedidos Entregues Ano Anterior]
+			RETURN
+			IF(
+			    HASONEVALUE('Dim_Calendario'[Ano-Mes])
+			        && NOT ISBLANK(Anterior)
+			        && Anterior <> 0,
+			    DIVIDE(Atual - Anterior, Anterior)
+			)
+		formatString: 0.00%
+		displayFolder: 06 - Inteligência Temporal
+		lineageTag: 58b08844-9c5a-4434-8a49-d025d6477954
+
+	measure 'Participação do Valor dos Itens (%)' =
+
+			DIVIDE(
+			    [Valor dos Itens],
+			    CALCULATE(
+			        [Valor dos Itens],
+			        ALLSELECTED(
+			            'Dim_Produtos'[Categoria do Produto (Português)]
+			        )
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 02 - Vendas e Frete
+		lineageTag: 6fa2281f-b8e7-4200-94f0-78ed441a6091
+
+	/// Coluna auxiliar técnica da tabela de medidas; não utilizada nos cálculos.
+	column _Auxiliar
+		isHidden
+		lineageTag: 4e31df7f-710a-45ba-a638-914144388e2c
+		isNameInferred
+		sourceColumn: [_Auxiliar]
+
+	partition _Medidas = calculated
+		mode: import
+		source =
+				DATATABLE(
+				    "_Auxiliar",
+				    INTEGER,
+				    {{1}}
+				)

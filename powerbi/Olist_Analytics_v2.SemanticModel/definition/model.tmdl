@@ -1,0 +1,27 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["FCT_ORDERS","FCT_ORDER_REVIEWS","FCT_ORDER_PAYMENTS","FCT_ORDER_ITEMS","DIM_SELLERS","DIM_PRODUCTS","DIM_GEOGRAPHY","DIM_CUSTOMERS"]
+
+annotation PBI_ProTooling = ["DevMode","MCP-PBIModeling"]
+
+ref table Fato_Pedidos
+ref table Fato_Avaliacoes
+ref table Fato_Pagamentos
+ref table Fato_Itens_Pedido
+ref table Dim_Vendedores
+ref table Dim_Produtos
+ref table Dim_Geografia
+ref table Dim_Clientes
+ref table Dim_Calendario
+ref table _Medidas
+
+ref cultureInfo pt-BR
