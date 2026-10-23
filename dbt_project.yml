@@ -11,7 +11,7 @@ profile: 'default'
 
 # Pacotes do projeto
 # ==================
-model-paths: ["models"]
+model-paths: ["models/olist"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
 seed-paths: ["seeds"]
