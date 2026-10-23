@@ -52,6 +52,36 @@ seguem `source -> cleaned -> renamed -> final`, com padronização de textos,
 nomes de colunas, categorias e datas. A execução é sob demanda; não há
 orquestração contínua implementada.
 
+### Modelagem física da camada RAW
+
+[![Estrutura física da camada RAW do Olist V2 no Snowflake](<modelagem_fisica/Diagrama Modelagem Física Olist v2.png>)](<modelagem_fisica/Diagrama Modelagem Física Olist v2.png>)
+
+A camada `OLIST.RAW` contém **9 tabelas e 52 colunas**, preservando a estrutura
+dos CSVs de origem. O diagrama e o
+[SQL de referência](modelagem_fisica/olist-v2-modelagem-fisica.sql) seguem os
+nomes, tipos e nulabilidade do
+[`script de criação RAW`](snowflake_scripts/06_cria_tabelas_raw.sql): textos
+em `VARCHAR`, datas em `TIMESTAMP_NTZ`, valores monetários em `NUMBER(12,2)` e
+coordenadas em `NUMBER(38,20)`.
+
+O DDL versionado não declara PK, FK, `UNIQUE`, `NOT NULL`, `CHECK`, colunas
+de identidade ou índices; todos os campos admitem nulos. As **7 ligações do
+diagrama são associações lógicas de consulta**, com cardinalidades de
+referência, sem afirmar constraints físicas ou integridade referencial
+implementada no Snowflake.
+
+`ORDER_REVIEWS` preserva os registros de avaliação sem presumir unicidade de
+`review_id`. `GEOLOCATION` permanece isolada porque o prefixo de CEP pode se
+repetir; sua consolidação por prefixo ocorre no mart `dim_geography`.
+A associação entre produtos e traduções não pressupõe tradução para todas as
+categorias. A RAW não contém as colunas técnicas `review_row_id` ou
+`geolocation_id`.
+
+Abra a imagem para consultar os detalhes ou importe o
+[JSON editável](modelagem_fisica/olist-v2-modelagem-fisica.json) em um diagrama
+Snowflake no DrawDB. Essa documentação reflete os scripts versionados; nenhuma
+estrutura do banco foi alterada durante a revisão.
+
 ## 6. Modelagem dimensional
 
 O projeto contém **8 marts**: quatro dimensões (`dim_customers`,
