@@ -1,0 +1,1100 @@
+{
+  "00_Controle": {
+    "2016-09-04 21:15:19": {
+      "Inicio": null
+    },
+    "2018-10-17 17:30:18": {
+      "Fim": null
+    },
+    "Total": {
+      "Avaliacoes": 99224.0,
+      "Entregues": 96478.0,
+      "Frete": 2251909.540000001,
+      "Itens": 112650.0,
+      "ItensSemTraducao": 1627.0,
+      "Pagamentos": 103886.0,
+      "Pedidos": 99441.0,
+      "PedidosComItens": 98666.0,
+      "ProdutosSemTraducao": 623.0,
+      "ValorItens": 13591643.700001087,
+      "ValorPagamentos": 16008872.12
+    }
+  },
+  "01_Mensal": {
+    "2016-09": {
+      "Entregues": 1.0,
+      "Pedidos": 4.0,
+      "TicketItens": 89.12,
+      "TicketItensEntregues": 134.97,
+      "ValorItens": 267.36,
+      "ValorItensEntregues": 134.97
+    },
+    "2016-10": {
+      "Entregues": 265.0,
+      "Pedidos": 324.0,
+      "TicketItens": 160.73915584415613,
+      "TicketItensEntregues": 152.17022641509467,
+      "ValorItens": 49507.66000000009,
+      "ValorItensEntregues": 40325.11000000009
+    },
+    "2016-12": {
+      "Entregues": 1.0,
+      "Pedidos": 1.0,
+      "TicketItens": 10.9,
+      "TicketItensEntregues": 10.9,
+      "ValorItens": 10.9,
+      "ValorItensEntregues": 10.9
+    },
+    "2017-01": {
+      "Entregues": 750.0,
+      "Pedidos": 800.0,
+      "TicketItens": 152.48779467680586,
+      "TicketItensEntregues": 149.06447999999978,
+      "ValorItens": 120312.86999999982,
+      "ValorItensEntregues": 111798.35999999984
+    },
+    "2017-02": {
+      "Entregues": 1653.0,
+      "Pedidos": 1780.0,
+      "TicketItens": 142.70226197345508,
+      "TicketItensEntregues": 141.6959467634592,
+      "ValorItens": 247303.01999999766,
+      "ValorItensEntregues": 234223.39999999807
+    },
+    "2017-03": {
+      "Entregues": 2546.0,
+      "Pedidos": 2682.0,
+      "TicketItens": 141.74339265429754,
+      "TicketItensEntregues": 141.08360172820088,
+      "ValorItens": 374344.2999999998,
+      "ValorItensEntregues": 359198.84999999945
+    },
+    "2017-04": {
+      "Entregues": 2303.0,
+      "Pedidos": 2404.0,
+      "TicketItens": 150.53418235048082,
+      "TicketItensEntregues": 147.92430742509757,
+      "ValorItens": 359927.22999999963,
+      "ValorItensEntregues": 340669.6799999997
+    },
+    "2017-05": {
+      "Entregues": 3546.0,
+      "Pedidos": 3700.0,
+      "TicketItens": 138.270803278689,
+      "TicketItensEntregues": 137.99725042301213,
+      "ValorItens": 506071.14000000164,
+      "ValorItensEntregues": 489338.25000000105
+    },
+    "2017-06": {
+      "Entregues": 3135.0,
+      "Pedidos": 3245.0,
+      "TicketItens": 134.60944979794886,
+      "TicketItensEntregues": 134.58480701754428,
+      "ValorItens": 433038.60000000143,
+      "ValorItensEntregues": 421923.37000000133
+    },
+    "2017-07": {
+      "Entregues": 3872.0,
+      "Pedidos": 4026.0,
+      "TicketItens": 125.48034265558151,
+      "TicketItensEntregues": 124.38133264462884,
+      "ValorItens": 498031.480000003,
+      "ValorItensEntregues": 481604.52000000287
+    },
+    "2017-08": {
+      "Entregues": 4193.0,
+      "Pedidos": 4331.0,
+      "TicketItens": 133.69943629163845,
+      "TicketItensEntregues": 132.29184354877262,
+      "ValorItens": 573971.6800000039,
+      "ValorItensEntregues": 554699.7000000036
+    },
+    "2017-09": {
+      "Entregues": 4150.0,
+      "Pedidos": 4285.0,
+      "TicketItens": 147.16042658496457,
+      "TicketItensEntregues": 146.36136626506135,
+      "ValorItens": 624401.6900000047,
+      "ValorItensEntregues": 607399.6700000046
+    },
+    "2017-10": {
+      "Entregues": 4478.0,
+      "Pedidos": 4631.0,
+      "TicketItens": 145.40705560420423,
+      "TicketItensEntregues": 144.76276239392692,
+      "ValorItens": 664219.4300000049,
+      "ValorItensEntregues": 648247.6500000048
+    },
+    "2017-11": {
+      "Entregues": 7289.0,
+      "Pedidos": 7544.0,
+      "TicketItens": 135.5886954771186,
+      "TicketItensEntregues": 135.5145246261504,
+      "ValorItens": 1010271.3700000107,
+      "ValorItensEntregues": 987765.3700000104
+    },
+    "2017-12": {
+      "Entregues": 5513.0,
+      "Pedidos": 5673.0,
+      "TicketItens": 132.27492354196414,
+      "TicketItensEntregues": 131.69475603120014,
+      "ValorItens": 743914.1700000063,
+      "ValorItensEntregues": 726033.1900000063
+    },
+    "2018-01": {
+      "Entregues": 7069.0,
+      "Pedidos": 7269.0,
+      "TicketItens": 131.58315235457238,
+      "TicketItensEntregues": 130.80280096194826,
+      "ValorItens": 950030.3600000126,
+      "ValorItensEntregues": 924645.0000000122
+    },
+    "2018-02": {
+      "Entregues": 6555.0,
+      "Pedidos": 6728.0,
+      "TicketItens": 126.1097564983579,
+      "TicketItensEntregues": 126.07736536994776,
+      "ValorItens": 844178.7100000078,
+      "ValorItensEntregues": 826437.1300000076
+    },
+    "2018-03": {
+      "Entregues": 7003.0,
+      "Pedidos": 7211.0,
+      "TicketItens": 136.78539788536557,
+      "TicketItensEntregues": 136.13540625446348,
+      "ValorItens": 983213.4400000077,
+      "ValorItensEntregues": 953356.2500000078
+    },
+    "2018-04": {
+      "Entregues": 6798.0,
+      "Pedidos": 6939.0,
+      "TicketItens": 143.73345111047144,
+      "TicketItensEntregues": 143.20889820535584,
+      "ValorItens": 996647.750000009,
+      "ValorItensEntregues": 973534.090000009
+    },
+    "2018-05": {
+      "Entregues": 6749.0,
+      "Pedidos": 6873.0,
+      "TicketItens": 145.41334889829372,
+      "TicketItensEntregues": 144.84289376203978,
+      "ValorItens": 996517.6800000068,
+      "ValorItensEntregues": 977544.6900000065
+    },
+    "2018-06": {
+      "Entregues": 6099.0,
+      "Pedidos": 6167.0,
+      "TicketItens": 140.4422581168844,
+      "TicketItensEntregues": 140.36364322020128,
+      "ValorItens": 865124.3100000079,
+      "ValorItensEntregues": 856077.8600000076
+    },
+    "2018-07": {
+      "Entregues": 6159.0,
+      "Pedidos": 6292.0,
+      "TicketItens": 142.75581380519793,
+      "TicketItensEntregues": 140.92441305406822,
+      "ValorItens": 895507.2200000066,
+      "ValorItensEntregues": 867953.4600000061
+    },
+    "2018-08": {
+      "Entregues": 6351.0,
+      "Pedidos": 6512.0,
+      "TicketItens": 132.46843304401872,
+      "TicketItensEntregues": 132.0385199181245,
+      "ValorItens": 854686.3300000088,
+      "ValorItensEntregues": 838576.6400000087
+    },
+    "2018-09": {
+      "Entregues": null,
+      "Pedidos": 16.0,
+      "TicketItens": 145.0,
+      "TicketItensEntregues": null,
+      "ValorItens": 145.0,
+      "ValorItensEntregues": null
+    },
+    "2018-10": {
+      "Entregues": null,
+      "Pedidos": 4.0,
+      "TicketItens": null,
+      "TicketItensEntregues": null,
+      "ValorItens": null,
+      "ValorItensEntregues": null
+    }
+  },
+  "02_Categorias": {
+    "(sem categoria)": {
+      "Itens": 1603.0,
+      "Participacao": 0.013209239733085753,
+      "PedidosComItens": 1451.0,
+      "ValorItens": 179535.279999999
+    },
+    "agro_industria_e_comercio": {
+      "Itens": 212.0,
+      "Participacao": 0.005336401659792938,
+      "PedidosComItens": 182.0,
+      "ValorItens": 72530.47000000003
+    },
+    "alimentos": {
+      "Itens": 510.0,
+      "Participacao": 0.002162608927130547,
+      "PedidosComItens": 450.0,
+      "ValorItens": 29393.41000000001
+    },
+    "alimentos_bebidas": {
+      "Itens": 278.0,
+      "Participacao": 0.001116824450011059,
+      "PedidosComItens": 227.0,
+      "ValorItens": 15179.47999999999
+    },
+    "artes": {
+      "Itens": 209.0,
+      "Participacao": 0.001780700004665225,
+      "PedidosComItens": 202.0,
+      "ValorItens": 24202.640000000014
+    },
+    "artes_e_artesanato": {
+      "Itens": 24.0,
+      "Participacao": 0.00013346509370311518,
+      "PedidosComItens": 23.0,
+      "ValorItens": 1814.0100000000002
+    },
+    "artigos_de_festas": {
+      "Itens": 43.0,
+      "Participacao": 0.00032999540739871223,
+      "PedidosComItens": 39.0,
+      "ValorItens": 4485.179999999999
+    },
+    "artigos_de_natal": {
+      "Itens": 153.0,
+      "Participacao": 0.0006475169739771276,
+      "PedidosComItens": 128.0,
+      "ValorItens": 8800.819999999994
+    },
+    "audio": {
+      "Itens": 364.0,
+      "Participacao": 0.003729387049779417,
+      "PedidosComItens": 350.0,
+      "ValorItens": 50688.50000000005
+    },
+    "automotivo": {
+      "Itens": 4235.0,
+      "Participacao": 0.04360915596985191,
+      "PedidosComItens": 3897.0,
+      "ValorItens": 592720.1100000025
+    },
+    "bebes": {
+      "Itens": 3065.0,
+      "Participacao": 0.0302954446929745,
+      "PedidosComItens": 2885.0,
+      "ValorItens": 411764.8899999982
+    },
+    "bebidas": {
+      "Itens": 379.0,
+      "Participacao": 0.0016501830459253605,
+      "PedidosComItens": 297.0,
+      "ValorItens": 22428.70000000003
+    },
+    "beleza_saude": {
+      "Itens": 9670.0,
+      "Participacao": 0.0926069994021311,
+      "PedidosComItens": 8836.0,
+      "ValorItens": 1258681.3399999796
+    },
+    "brinquedos": {
+      "Itens": 4117.0,
+      "Participacao": 0.03560618646881956,
+      "PedidosComItens": 3886.0,
+      "ValorItens": 483946.5999999953
+    },
+    "cama_mesa_banho": {
+      "Itens": 11115.0,
+      "Participacao": 0.07629604651863772,
+      "PedidosComItens": 9417.0,
+      "ValorItens": 1036988.6800000323
+    },
+    "casa_conforto": {
+      "Itens": 434.0,
+      "Participacao": 0.00430941549769992,
+      "PedidosComItens": 397.0,
+      "ValorItens": 58572.04000000017
+    },
+    "casa_conforto_2": {
+      "Itens": 30.0,
+      "Participacao": 5.5936575206127495e-05,
+      "PedidosComItens": 24.0,
+      "ValorItens": 760.2699999999998
+    },
+    "casa_construcao": {
+      "Itens": 604.0,
+      "Participacao": 0.006113176730787385,
+      "PedidosComItens": 490.0,
+      "ValorItens": 83088.1199999996
+    },
+    "cds_dvds_musicais": {
+      "Itens": 14.0,
+      "Participacao": 5.370947150416705e-05,
+      "PedidosComItens": 12.0,
+      "ValorItens": 730.0
+    },
+    "cine_foto": {
+      "Itens": 72.0,
+      "Participacao": 0.0005101266743770984,
+      "PedidosComItens": 65.0,
+      "ValorItens": 6933.4599999999955
+    },
+    "climatizacao": {
+      "Itens": 297.0,
+      "Participacao": 0.004048440439914978,
+      "PedidosComItens": 253.0,
+      "ValorItens": 55024.96000000004
+    },
+    "consoles_games": {
+      "Itens": 1137.0,
+      "Participacao": 0.011585443488338868,
+      "PedidosComItens": 1062.0,
+      "ValorItens": 157465.2199999996
+    },
+    "construcao_ferramentas_construcao": {
+      "Itens": 929.0,
+      "Participacao": 0.010644598489584323,
+      "PedidosComItens": 748.0,
+      "ValorItens": 144677.58999999985
+    },
+    "construcao_ferramentas_ferramentas": {
+      "Itens": 103.0,
+      "Participacao": 0.0011701270538749277,
+      "PedidosComItens": 97.0,
+      "ValorItens": 15903.949999999995
+    },
+    "construcao_ferramentas_iluminacao": {
+      "Itens": 304.0,
+      "Participacao": 0.0030224453279331246,
+      "PedidosComItens": 244.0,
+      "ValorItens": 41079.99999999997
+    },
+    "construcao_ferramentas_jardim": {
+      "Itens": 238.0,
+      "Participacao": 0.0018920367961086256,
+      "PedidosComItens": 194.0,
+      "ValorItens": 25715.890000000043
+    },
+    "construcao_ferramentas_seguranca": {
+      "Itens": 194.0,
+      "Participacao": 0.002983047591219359,
+      "PedidosComItens": 167.0,
+      "ValorItens": 40544.52000000002
+    },
+    "cool_stuff": {
+      "Itens": 3796.0,
+      "Participacao": 0.04674128192456547,
+      "PedidosComItens": 3632.0,
+      "ValorItens": 635290.849999995
+    },
+    "dvds_blu_ray": {
+      "Itens": 64.0,
+      "Participacao": 0.00044140283047586936,
+      "PedidosComItens": 59.0,
+      "ValorItens": 5999.389999999998
+    },
+    "eletrodomesticos": {
+      "Itens": 771.0,
+      "Participacao": 0.005898589734219833,
+      "PedidosComItens": 764.0,
+      "ValorItens": 80171.53000000007
+    },
+    "eletrodomesticos_2": {
+      "Itens": 238.0,
+      "Participacao": 0.008337309489652887,
+      "PedidosComItens": 234.0,
+      "ValorItens": 113317.73999999995
+    },
+    "eletronicos": {
+      "Itens": 2767.0,
+      "Participacao": 0.011790092761185792,
+      "PedidosComItens": 2550.0,
+      "ValorItens": 160246.7399999993
+    },
+    "eletroportateis": {
+      "Itens": 679.0,
+      "Participacao": 0.014026896540849158,
+      "PedidosComItens": 630.0,
+      "ValorItens": 190648.5799999995
+    },
+    "esporte_lazer": {
+      "Itens": 8641.0,
+      "Participacao": 0.07269532602594149,
+      "PedidosComItens": 7720.0,
+      "ValorItens": 988048.9700000128
+    },
+    "fashion_bolsas_e_acessorios": {
+      "Itens": 2031.0,
+      "Participacao": 0.011243933653145076,
+      "PedidosComItens": 1864.0,
+      "ValorItens": 152823.53999999948
+    },
+    "fashion_calcados": {
+      "Itens": 262.0,
+      "Participacao": 0.0017336218135263616,
+      "PedidosComItens": 240.0,
+      "ValorItens": 23562.770000000033
+    },
+    "fashion_esporte": {
+      "Itens": 30.0,
+      "Participacao": 0.0001559421396545166,
+      "PedidosComItens": 27.0,
+      "ValorItens": 2119.51
+    },
+    "fashion_roupa_feminina": {
+      "Itens": 48.0,
+      "Participacao": 0.0002062767434081409,
+      "PedidosComItens": 39.0,
+      "ValorItens": 2803.639999999999
+    },
+    "fashion_roupa_infanto_juvenil": {
+      "Itens": 8.0,
+      "Participacao": 4.192649635157479e-05,
+      "PedidosComItens": 8.0,
+      "ValorItens": 569.85
+    },
+    "fashion_roupa_masculina": {
+      "Itens": 132.0,
+      "Participacao": 0.0007944454871193492,
+      "PedidosComItens": 112.0,
+      "ValorItens": 10797.819999999996
+    },
+    "fashion_underwear_e_moda_praia": {
+      "Itens": 131.0,
+      "Participacao": 0.0007020159011377876,
+      "PedidosComItens": 121.0,
+      "ValorItens": 9541.549999999997
+    },
+    "ferramentas_jardim": {
+      "Itens": 4347.0,
+      "Participacao": 0.035702558918607505,
+      "PedidosComItens": 3518.0,
+      "ValorItens": 485256.4600000093
+    },
+    "flores": {
+      "Itens": 33.0,
+      "Participacao": 8.167076951847339e-05,
+      "PedidosComItens": 29.0,
+      "ValorItens": 1110.0399999999997
+    },
+    "fraldas_higiene": {
+      "Itens": 39.0,
+      "Participacao": 0.00011533483621262635,
+      "PedidosComItens": 27.0,
+      "ValorItens": 1567.5900000000001
+    },
+    "industria_comercio_e_negocios": {
+      "Itens": 268.0,
+      "Participacao": 0.002918676421748521,
+      "PedidosComItens": 235.0,
+      "ValorItens": 39669.61
+    },
+    "informatica_acessorios": {
+      "Itens": 7827.0,
+      "Participacao": 0.06709669118238759,
+      "PedidosComItens": 6689.0,
+      "ValorItens": 911954.3200000167
+    },
+    "instrumentos_musicais": {
+      "Itens": 680.0,
+      "Participacao": 0.014089457038958749,
+      "PedidosComItens": 628.0,
+      "ValorItens": 191498.87999999966
+    },
+    "la_cuisine": {
+      "Itens": 14.0,
+      "Participacao": 0.00015119510526897018,
+      "PedidosComItens": 13.0,
+      "ValorItens": 2054.99
+    },
+    "livros_importados": {
+      "Itens": 60.0,
+      "Participacao": 0.00034137519364193077,
+      "PedidosComItens": 53.0,
+      "ValorItens": 4639.849999999999
+    },
+    "livros_interesse_geral": {
+      "Itens": 553.0,
+      "Participacao": 0.003447477070046824,
+      "PedidosComItens": 512.0,
+      "ValorItens": 46856.88000000012
+    },
+    "livros_tecnicos": {
+      "Itens": 267.0,
+      "Participacao": 0.00140498532933132,
+      "PedidosComItens": 260.0,
+      "ValorItens": 19096.059999999987
+    },
+    "malas_acessorios": {
+      "Itens": 1092.0,
+      "Participacao": 0.010332082204302321,
+      "PedidosComItens": 1034.0,
+      "ValorItens": 140429.979999999
+    },
+    "market_place": {
+      "Itens": 311.0,
+      "Participacao": 0.0020879351038313168,
+      "PedidosComItens": 280.0,
+      "ValorItens": 28378.470000000034
+    },
+    "moveis_colchao_e_estofado": {
+      "Itens": 38.0,
+      "Participacao": 0.0003213798195724959,
+      "PedidosComItens": 38.0,
+      "ValorItens": 4368.08
+    },
+    "moveis_cozinha_area_de_servico_jantar_e_jardim": {
+      "Itens": 281.0,
+      "Participacao": 0.0034085921484239886,
+      "PedidosComItens": 248.0,
+      "ValorItens": 46328.370000000075
+    },
+    "moveis_decoracao": {
+      "Itens": 8334.0,
+      "Participacao": 0.05369199679652857,
+      "PedidosComItens": 6449.0,
+      "ValorItens": 729762.490000016
+    },
+    "moveis_escritorio": {
+      "Itens": 1691.0,
+      "Participacao": 0.020156553986180062,
+      "PedidosComItens": 1273.0,
+      "ValorItens": 273960.69999999605
+    },
+    "moveis_quarto": {
+      "Itens": 109.0,
+      "Participacao": 0.0014736098474975767,
+      "PedidosComItens": 95.0,
+      "ValorItens": 20028.780000000002
+    },
+    "moveis_sala": {
+      "Itens": 503.0,
+      "Participacao": 0.005070509610253732,
+      "PedidosComItens": 422.0,
+      "ValorItens": 68916.5600000001
+    },
+    "musica": {
+      "Itens": 38.0,
+      "Participacao": 0.0004439749991385896,
+      "PedidosComItens": 38.0,
+      "ValorItens": 6034.349999999999
+    },
+    "papelaria": {
+      "Itens": 2517.0,
+      "Participacao": 0.01699156004214411,
+      "PedidosComItens": 2311.0,
+      "ValorItens": 230943.2299999982
+    },
+    "pc_gamer": {
+      "Itens": 9.0,
+      "Participacao": 0.00011374268146831103,
+      "PedidosComItens": 8.0,
+      "ValorItens": 1545.95
+    },
+    "pcs": {
+      "Itens": 203.0,
+      "Participacao": 0.016404427229061484,
+      "PedidosComItens": 181.0,
+      "ValorItens": 222963.12999999983
+    },
+    "perfumaria": {
+      "Itens": 3419.0,
+      "Participacao": 0.02936546004365659,
+      "PedidosComItens": 3162.0,
+      "ValorItens": 399124.8699999988
+    },
+    "pet_shop": {
+      "Itens": 1947.0,
+      "Participacao": 0.01576817452917645,
+      "PedidosComItens": 1710.0,
+      "ValorItens": 214315.40999999866
+    },
+    "portateis_casa_forno_e_cafe": {
+      "Itens": 76.0,
+      "Participacao": 0.003490800012657499,
+      "PedidosComItens": 75.0,
+      "ValorItens": 47445.71000000001
+    },
+    "portateis_cozinha_e_preparadores_de_alimentos": {
+      "Itens": 15.0,
+      "Participacao": 0.00029198308075127687,
+      "PedidosComItens": 14.0,
+      "ValorItens": 3968.530000000001
+    },
+    "relogios_presentes": {
+      "Itens": 5991.0,
+      "Participacao": 0.08865783319495883,
+      "PedidosComItens": 5624.0,
+      "ValorItens": 1205005.6800000095
+    },
+    "seguros_e_servicos": {
+      "Itens": 2.0,
+      "Participacao": 2.0842953674541757e-05,
+      "PedidosComItens": 2.0,
+      "ValorItens": 283.28999999999996
+    },
+    "sinalizacao_e_seguranca": {
+      "Itens": 199.0,
+      "Participacao": 0.0015825333914542131,
+      "PedidosComItens": 140.0,
+      "ValorItens": 21509.23000000001
+    },
+    "tablets_impressao_imagem": {
+      "Itens": 83.0,
+      "Participacao": 0.0005538998936529948,
+      "PedidosComItens": 79.0,
+      "ValorItens": 7528.409999999998
+    },
+    "telefonia": {
+      "Itens": 4545.0,
+      "Participacao": 0.02381371504021785,
+      "PedidosComItens": 4199.0,
+      "ValorItens": 323667.52999999805
+    },
+    "telefonia_fixa": {
+      "Itens": 264.0,
+      "Participacao": 0.004383796494017517,
+      "PedidosComItens": 217.0,
+      "ValorItens": 59583.00000000003
+    },
+    "utilidades_domesticas": {
+      "Itens": 6964.0,
+      "Participacao": 0.04651745395591559,
+      "PedidosComItens": 5884.0,
+      "ValorItens": 632248.6600000107
+    }
+  },
+  "03_VendedoresTop10": {
+    "1025f0e2d44d7041d6cf58b6550e0bfa": {
+      "Itens": 1428.0,
+      "Participacao": 0.010224558049589594,
+      "PedidosComItens": 915.0,
+      "ValorItens": 138968.5499999998
+    },
+    "4869f7a5dfa277a7dca6462dcf3b52b2": {
+      "Itens": 1156.0,
+      "Participacao": 0.016883361208179692,
+      "PedidosComItens": 1132.0,
+      "ValorItens": 229472.62999999826
+    },
+    "4a3ca9315b744ce9f8e9374361493884": {
+      "Itens": 1987.0,
+      "Participacao": 0.014749718608352178,
+      "PedidosComItens": 1806.0,
+      "ValorItens": 200472.91999999867
+    },
+    "53243585a1d6dc2643021fd1853d8905": {
+      "Itens": 410.0,
+      "Participacao": 0.0163906628894327,
+      "PedidosComItens": 358.0,
+      "ValorItens": 222776.04999999958
+    },
+    "7a67c85e85bb2ce8582c35f2203ad736": {
+      "Itens": 1171.0,
+      "Participacao": 0.010428873293668614,
+      "PedidosComItens": 1160.0,
+      "ValorItens": 141745.5300000006
+    },
+    "7c67e1448b00f6e969d365cea6b010ab": {
+      "Itens": 1364.0,
+      "Participacao": 0.0138264285135716,
+      "PedidosComItens": 982.0,
+      "ValorItens": 187923.89000000083
+    },
+    "7e93a43ef30c4f03f38b393420bc753a": {
+      "Itens": 340.0,
+      "Participacao": 0.012980907526290275,
+      "PedidosComItens": 336.0,
+      "ValorItens": 176431.8699999999
+    },
+    "955fee9216a65b617aa5c0531780ce60": {
+      "Itens": 1499.0,
+      "Participacao": 0.009945206259342178,
+      "PedidosComItens": 1287.0,
+      "ValorItens": 135171.6999999995
+    },
+    "da8622b14eb17ae2831f4ac5b9dab84a": {
+      "Itens": 1551.0,
+      "Participacao": 0.011789344507315653,
+      "PedidosComItens": 1314.0,
+      "ValorItens": 160236.56999999922
+    },
+    "fa1c13f2614d7b5c4749cbc52fecda94": {
+      "Itens": 586.0,
+      "Participacao": 0.014276568329994029,
+      "PedidosComItens": 585.0,
+      "ValorItens": 194042.02999999837
+    }
+  },
+  "04_UF": {
+    "AC": {
+      "Atrasados": 3.0,
+      "BasePontualidade": 80.0,
+      "DiasEntrega": 21.03571296296286,
+      "Entregues": 80.0,
+      "Frete": 3686.75,
+      "ParticipacaoFrete": 0.18743295525605388,
+      "Pedidos": 81.0,
+      "TaxaAtraso": 0.0375,
+      "ValorItens": 15982.949999999984,
+      "ValorItensEntregues": 15930.969999999985
+    },
+    "AL": {
+      "Atrasados": 85.0,
+      "BasePontualidade": 397.0,
+      "DiasEntrega": 24.54385536197412,
+      "Entregues": 397.0,
+      "Frete": 15914.59,
+      "ParticipacaoFrete": 0.16538178560814057,
+      "Pedidos": 413.0,
+      "TaxaAtraso": 0.2141057934508816,
+      "ValorItens": 80314.81,
+      "ValorItensEntregues": 78855.72
+    },
+    "AM": {
+      "Atrasados": 4.0,
+      "BasePontualidade": 145.0,
+      "DiasEntrega": 26.4259909003833,
+      "Entregues": 145.0,
+      "Frete": 5478.89,
+      "ParticipacaoFrete": 0.19682939876195088,
+      "Pedidos": 148.0,
+      "TaxaAtraso": 0.027586206896551724,
+      "ValorItens": 22356.840000000007,
+      "ValorItensEntregues": 22155.84000000001
+    },
+    "AP": {
+      "Atrasados": 2.0,
+      "BasePontualidade": 67.0,
+      "DiasEntrega": 27.18506771697063,
+      "Entregues": 67.0,
+      "Frete": 2788.5,
+      "ParticipacaoFrete": 0.17146493838699373,
+      "Pedidos": 68.0,
+      "TaxaAtraso": 0.029850746268656716,
+      "ValorItens": 13474.29999999999,
+      "ValorItensEntregues": 13374.80999999999
+    },
+    "BA": {
+      "Atrasados": 396.0,
+      "BasePontualidade": 3256.0,
+      "DiasEntrega": 19.335465824489294,
+      "Entregues": 3256.0,
+      "Frete": 100156.68,
+      "ParticipacaoFrete": 0.16378673351183556,
+      "Pedidos": 3380.0,
+      "TaxaAtraso": 0.12162162162162163,
+      "ValorItens": 511349.9900000001,
+      "ValorItensEntregues": 493584.14
+    },
+    "CE": {
+      "Atrasados": 176.0,
+      "BasePontualidade": 1279.0,
+      "DiasEntrega": 21.26657863492898,
+      "Entregues": 1279.0,
+      "Frete": 48351.59,
+      "ParticipacaoFrete": 0.1754371725174652,
+      "Pedidos": 1336.0,
+      "TaxaAtraso": 0.1376075058639562,
+      "ValorItens": 227254.70999999845,
+      "ValorItensEntregues": 219757.37999999852
+    },
+    "DF": {
+      "Atrasados": 118.0,
+      "BasePontualidade": 2080.0,
+      "DiasEntrega": 12.967568108974369,
+      "Entregues": 2080.0,
+      "Frete": 50625.5,
+      "ParticipacaoFrete": 0.143321859016055,
+      "Pedidos": 2140.0,
+      "TaxaAtraso": 0.05673076923076923,
+      "ValorItens": 302603.9399999996,
+      "ValorItensEntregues": 296498.4099999995
+    },
+    "ES": {
+      "Atrasados": 214.0,
+      "BasePontualidade": 1995.0,
+      "DiasEntrega": 15.789307110368505,
+      "Entregues": 1995.0,
+      "Frete": 49764.6,
+      "ParticipacaoFrete": 0.1532152320163392,
+      "Pedidos": 2033.0,
+      "TaxaAtraso": 0.10726817042606517,
+      "ValorItens": 275037.30999999924,
+      "ValorItensEntregues": 268643.44999999885
+    },
+    "GO": {
+      "Atrasados": 128.0,
+      "BasePontualidade": 1957.0,
+      "DiasEntrega": 15.606338535456741,
+      "Entregues": 1957.0,
+      "Frete": 53114.98,
+      "ParticipacaoFrete": 0.1527578987281041,
+      "Pedidos": 2020.0,
+      "TaxaAtraso": 0.06540623403168115,
+      "ValorItens": 294591.9500000001,
+      "ValorItensEntregues": 282836.69999999984
+    },
+    "MA": {
+      "Atrasados": 125.0,
+      "BasePontualidade": 717.0,
+      "DiasEntrega": 21.57297647412055,
+      "Entregues": 717.0,
+      "Frete": 31523.77,
+      "ParticipacaoFrete": 0.2085291726331047,
+      "Pedidos": 747.0,
+      "TaxaAtraso": 0.17433751743375175,
+      "ValorItens": 119648.2200000001,
+      "ValorItensEntregues": 117009.38000000014
+    },
+    "MG": {
+      "Atrasados": 519.0,
+      "BasePontualidade": 11354.0,
+      "DiasEntrega": 12.00866564606037,
+      "Entregues": 11354.0,
+      "Frete": 270853.46,
+      "ParticipacaoFrete": 0.1459212797265869,
+      "Pedidos": 11635.0,
+      "TaxaAtraso": 0.04571076272679232,
+      "ValorItens": 1585308.0299999432,
+      "ValorItensEntregues": 1552481.8299999428
+    },
+    "MS": {
+      "Atrasados": 68.0,
+      "BasePontualidade": 701.0,
+      "DiasEntrega": 15.618319018465566,
+      "Entregues": 701.0,
+      "Frete": 19144.03,
+      "ParticipacaoFrete": 0.14080978888347306,
+      "Pedidos": 715.0,
+      "TaxaAtraso": 0.09700427960057062,
+      "ValorItens": 116812.63999999985,
+      "ValorItensEntregues": 115429.96999999983
+    },
+    "MT": {
+      "Atrasados": 53.0,
+      "BasePontualidade": 886.0,
+      "DiasEntrega": 18.055756011725588,
+      "Entregues": 886.0,
+      "Frete": 29715.43,
+      "ParticipacaoFrete": 0.1596153837890059,
+      "Pedidos": 907.0,
+      "TaxaAtraso": 0.05981941309255079,
+      "ValorItens": 156453.52999999947,
+      "ValorItensEntregues": 152191.61999999947
+    },
+    "PA": {
+      "Atrasados": 106.0,
+      "BasePontualidade": 946.0,
+      "DiasEntrega": 23.772916911361584,
+      "Entregues": 946.0,
+      "Frete": 38699.3,
+      "ParticipacaoFrete": 0.17780755278579247,
+      "Pedidos": 975.0,
+      "TaxaAtraso": 0.11205073995771671,
+      "ValorItens": 178947.809999999,
+      "ValorItensEntregues": 174470.589999999
+    },
+    "PB": {
+      "Atrasados": 54.0,
+      "BasePontualidade": 517.0,
+      "DiasEntrega": 20.426767609606877,
+      "Entregues": 517.0,
+      "Frete": 25719.73,
+      "ParticipacaoFrete": 0.18242520399458653,
+      "Pedidos": 536.0,
+      "TaxaAtraso": 0.10444874274661509,
+      "ValorItens": 115268.07999999996,
+      "ValorItensEntregues": 112586.81999999998
+    },
+    "PE": {
+      "Atrasados": 153.0,
+      "BasePontualidade": 1593.0,
+      "DiasEntrega": 18.448322994408336,
+      "Entregues": 1593.0,
+      "Frete": 59449.66,
+      "ParticipacaoFrete": 0.18449008866715838,
+      "Pedidos": 1652.0,
+      "TaxaAtraso": 0.096045197740113,
+      "ValorItens": 262788.0299999984,
+      "ValorItensEntregues": 251889.4899999984
+    },
+    "PI": {
+      "Atrasados": 66.0,
+      "BasePontualidade": 476.0,
+      "DiasEntrega": 19.457098262916276,
+      "Entregues": 476.0,
+      "Frete": 21218.2,
+      "ParticipacaoFrete": 0.1962244761693732,
+      "Pedidos": 495.0,
+      "TaxaAtraso": 0.13865546218487396,
+      "ValorItens": 86914.08000000006,
+      "ValorItensEntregues": 84721.00000000006
+    },
+    "PR": {
+      "Atrasados": 199.0,
+      "BasePontualidade": 4923.0,
+      "DiasEntrega": 11.991582227413256,
+      "Entregues": 4923.0,
+      "Frete": 117851.68,
+      "ParticipacaoFrete": 0.14714254622070344,
+      "Pedidos": 5045.0,
+      "TaxaAtraso": 0.04042250660166565,
+      "ValorItens": 683083.7600000037,
+      "ValorItensEntregues": 666063.5100000034
+    },
+    "RJ": {
+      "Atrasados": 1495.0,
+      "BasePontualidade": 12350.0,
+      "DiasEntrega": 15.30943754217261,
+      "Entregues": 12350.0,
+      "Frete": 305589.31,
+      "ParticipacaoFrete": 0.1434905835095679,
+      "Pedidos": 12852.0,
+      "TaxaAtraso": 0.12105263157894737,
+      "ValorItens": 1824092.6699999173,
+      "ValorItensEntregues": 1759651.1299999189
+    },
+    "RN": {
+      "Atrasados": 44.0,
+      "BasePontualidade": 474.0,
+      "DiasEntrega": 19.27815620604794,
+      "Entregues": 474.0,
+      "Frete": 18860.1,
+      "ParticipacaoFrete": 0.18509333326005525,
+      "Pedidos": 485.0,
+      "TaxaAtraso": 0.09282700421940929,
+      "ValorItens": 83034.98000000004,
+      "ValorItensEntregues": 82105.66000000006
+    },
+    "RO": {
+      "Atrasados": 7.0,
+      "BasePontualidade": 243.0,
+      "DiasEntrega": 19.3720365131079,
+      "Entregues": 243.0,
+      "Frete": 11417.38,
+      "ParticipacaoFrete": 0.19836297356997318,
+      "Pedidos": 253.0,
+      "TaxaAtraso": 0.02880658436213992,
+      "ValorItens": 46140.64000000006,
+      "ValorItensEntregues": 45682.76000000006
+    },
+    "RR": {
+      "Atrasados": 5.0,
+      "BasePontualidade": 41.0,
+      "DiasEntrega": 29.387546014002023,
+      "Entregues": 41.0,
+      "Frete": 2235.19,
+      "ParticipacaoFrete": 0.222083893877762,
+      "Pedidos": 46.0,
+      "TaxaAtraso": 0.12195121951219512,
+      "ValorItens": 7829.429999999995,
+      "ValorItensEntregues": 7057.469999999997
+    },
+    "RS": {
+      "Atrasados": 325.0,
+      "BasePontualidade": 5344.0,
+      "DiasEntrega": 15.300276192406942,
+      "Entregues": 5345.0,
+      "Frete": 135522.74,
+      "ParticipacaoFrete": 0.15299011739044682,
+      "Pedidos": 5466.0,
+      "TaxaAtraso": 0.06081586826347305,
+      "ValorItens": 750304.0200000055,
+      "ValorItensEntregues": 728897.470000005
+    },
+    "SC": {
+      "Atrasados": 291.0,
+      "BasePontualidade": 3546.0,
+      "DiasEntrega": 14.954782876767814,
+      "Entregues": 3546.0,
+      "Frete": 89660.26,
+      "ParticipacaoFrete": 0.1469325822957726,
+      "Pedidos": 3637.0,
+      "TaxaAtraso": 0.08206429780033841,
+      "ValorItens": 520553.34000000224,
+      "ValorItensEntregues": 507012.1300000021
+    },
+    "SE": {
+      "Atrasados": 51.0,
+      "BasePontualidade": 335.0,
+      "DiasEntrega": 21.519788280818172,
+      "Entregues": 335.0,
+      "Frete": 14111.47,
+      "ParticipacaoFrete": 0.19322226104825913,
+      "Pedidos": 350.0,
+      "TaxaAtraso": 0.15223880597014924,
+      "ValorItens": 58920.85000000003,
+      "ValorItensEntregues": 56574.19000000004
+    },
+    "SP": {
+      "Atrasados": 1820.0,
+      "BasePontualidade": 40494.0,
+      "DiasEntrega": 8.761385996084952,
+      "Entregues": 40501.0,
+      "Frete": 718723.07,
+      "ParticipacaoFrete": 0.12137151926114008,
+      "Pedidos": 41746.0,
+      "TaxaAtraso": 0.044944930113103174,
+      "ValorItens": 5202955.050001221,
+      "ValorItensEntregues": 5067633.160001043
+    },
+    "TO": {
+      "Atrasados": 27.0,
+      "BasePontualidade": 274.0,
+      "DiasEntrega": 17.658062609826967,
+      "Entregues": 274.0,
+      "Frete": 11732.68,
+      "ParticipacaoFrete": 0.19122795065131387,
+      "Pedidos": 280.0,
+      "TaxaAtraso": 0.09854014598540146,
+      "ValorItens": 49621.74000000008,
+      "ValorItensEntregues": 48402.51000000007
+    }
+  },
+  "05_Logistica": {
+    "Total": {
+      "Atrasados": 6534.0,
+      "BasePontualidade": 96470.0,
+      "DiasEntrega": 12.558217098051971,
+      "Entregues": 96478.0,
+      "NoPrazo": 89936.0,
+      "TaxaAtraso": 0.06773090079817559,
+      "TaxaNoPrazo": 0.9322690992018244
+    }
+  },
+  "06_Satisfacao": {
+    "Total": {
+      "Avaliacoes": 99224.0,
+      "AvaliacoesPositivas": 76470.0,
+      "NotaMediaPorPedido": 4.086793415287532,
+      "NotaMediaRegistros": 4.08642062404257,
+      "PedidosAvaliados": 98673.0,
+      "TaxaPositivas": 0.7706804805289043
+    }
+  },
+  "07_AtrasoNotas": {
+    "Atrasado": {
+      "Avaliacoes": 6409.0,
+      "DPNotaPorPedido": 1.5710584707027866,
+      "NotaMediaPorPedido": 2.2718225983388183,
+      "NotaMediaRegistros": 2.271025120923701,
+      "NotasValidas": 6409.0,
+      "Pedidos": 6534.0,
+      "PedidosAvaliados": 6381.0
+    },
+    "No prazo": {
+      "Avaliacoes": 89944.0,
+      "DPNotaPorPedido": 1.147939541178015,
+      "NotaMediaPorPedido": 4.290589164793966,
+      "NotaMediaRegistros": 4.289980432268967,
+      "NotasValidas": 89944.0,
+      "Pedidos": 89936.0,
+      "PedidosAvaliados": 89443.0
+    }
+  }
+}
