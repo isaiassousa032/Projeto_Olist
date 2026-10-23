@@ -58,6 +58,36 @@ O projeto contém **8 marts**: quatro dimensões (`dim_customers`,
 `dim_products`, `dim_sellers`, `dim_geography`) e quatro fatos (`fct_orders`,
 `fct_order_items`, `fct_order_payments`, `fct_order_reviews`).
 
+### Diagrama dos marts
+
+[![Modelagem dimensional do Olist V2: quatro dimensões, quatro fatos e seis relacionamentos lógicos 1:N](modelagem_dimensional/modelagem_dimensional.png)](modelagem_dimensional/modelagem_dimensional.png)
+
+O diagrama foi construído no DrawDB a partir dos SQLs de
+[`models/marts/`](models/marts/), dos testes em
+[`schema.yml`](models/marts/schema.yml) e dos tipos definidos no
+[`script de criação das tabelas RAW`](snowflake_scripts/06_cria_tabelas_raw.sql).
+Abra a imagem para consultar as colunas em alta resolução.
+
+`fct_orders` conecta clientes aos fatos de itens, pagamentos e avaliações.
+Produtos e vendedores se relacionam com itens. As seis relações são lógicas,
+validadas no dbt; os símbolos PK/FK não afirmam constraints físicas criadas no
+Snowflake. `fct_order_reviews` permanece sem PK, pois `review_id` pode se repetir.
+
+`dim_geography` fica isolada, com 19.015 prefixos conforme a documentação do
+projeto, disponível para enriquecimento geográfico opcional. O Power BI
+acrescenta o relacionamento com `Dim_Calendario`, criada via DAX e associada à
+data da compra (dia); `_Medidas` apenas organiza medidas. Esses dois objetos
+não são marts físicos.
+
+Arquivos do diagrama: [PNG](modelagem_dimensional/modelagem_dimensional.png),
+[JSON editável no DrawDB](modelagem_dimensional/olist-v2-modelagem-dimensional.json)
+e [SVG](modelagem_dimensional/olist-v2-modelagem-dimensional.svg).
+Para editar, importe o JSON no DrawDB. A precisão e a escala finais de
+`latitude` e `longitude` após `AVG` ainda precisam de confirmação no catálogo
+Snowflake; no diagrama, `NUMBER` indica apenas a família numérica desses campos.
+
+### Grãos dos modelos
+
 | Modelo | Grão |
 | --- | --- |
 | `dim_customers` | `customer_id` |
@@ -87,6 +117,7 @@ agregue cada fato por `order_id` antes de combiná-los.
 ├── assets/                   # Fundos visuais do relatório
 ├── docs/                     # Arquitetura e insights
 ├── macros/                   # Macros dbt
+├── modelagem_dimensional/    # ERD dos marts: PNG, SVG e JSON DrawDB
 ├── modelagem_fisica/         # Diagrama e SQL de referência
 ├── models/                   # Staging, intermediate, marts e YAML
 ├── powerbi/                  # Projeto PBIP, relatório e modelo TMDL
