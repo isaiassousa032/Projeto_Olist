@@ -125,3 +125,4 @@ table Dim_Produtos
 				    DIM_PRODUCTS_Table
 
 	annotation PBI_ResultType = Table
+

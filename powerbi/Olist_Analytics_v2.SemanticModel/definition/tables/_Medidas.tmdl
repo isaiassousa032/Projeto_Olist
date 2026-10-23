@@ -369,7 +369,7 @@ table _Medidas
 		lineageTag: 58b08844-9c5a-4434-8a49-d025d6477954
 
 	measure 'Participação do Valor dos Itens (%)' =
-
+			
 			DIVIDE(
 			    [Valor dos Itens],
 			    CALCULATE(
@@ -398,3 +398,4 @@ table _Medidas
 				    INTEGER,
 				    {{1}}
 				)
+

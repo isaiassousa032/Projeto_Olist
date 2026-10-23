@@ -50,3 +50,4 @@ table Dim_Vendedores
 				    DIM_SELLERS_Table
 
 	annotation PBI_ResultType = Table
+

@@ -115,3 +115,4 @@ table Fato_Itens_Pedido
 				    FCT_ORDER_ITEMS_Table
 
 	annotation PBI_ResultType = Table
+

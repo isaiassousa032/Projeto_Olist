@@ -87,3 +87,4 @@ table Fato_Pagamentos
 				    FCT_ORDER_PAYMENTS_Table
 
 	annotation PBI_ResultType = Table
+

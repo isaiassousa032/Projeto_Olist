@@ -102,3 +102,4 @@ table Dim_Calendario
 				    "Dia da Semana", FORMAT([Data], "dddd", "pt-BR"),
 				    "Numero do Dia da Semana", WEEKDAY([Data], 2)
 				)
+

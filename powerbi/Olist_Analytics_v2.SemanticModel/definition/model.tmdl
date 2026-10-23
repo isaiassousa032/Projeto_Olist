@@ -11,7 +11,7 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_QueryOrder = ["FCT_ORDERS","FCT_ORDER_REVIEWS","FCT_ORDER_PAYMENTS","FCT_ORDER_ITEMS","DIM_SELLERS","DIM_PRODUCTS","DIM_GEOGRAPHY","DIM_CUSTOMERS"]
 
-annotation PBI_ProTooling = ["DevMode","MCP-PBIModeling"]
+annotation PBI_ProTooling = ["DevMode","MCP-PBIModeling","DaxQueryView_Desktop"]
 
 ref table Fato_Pedidos
 ref table Fato_Avaliacoes
@@ -25,3 +25,4 @@ ref table Dim_Calendario
 ref table _Medidas
 
 ref cultureInfo pt-BR
+

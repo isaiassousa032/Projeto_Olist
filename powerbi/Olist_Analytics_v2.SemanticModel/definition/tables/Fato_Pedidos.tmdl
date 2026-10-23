@@ -108,3 +108,4 @@ table Fato_Pedidos
 				    FCT_ORDERS_Table
 
 	annotation PBI_ResultType = Table
+

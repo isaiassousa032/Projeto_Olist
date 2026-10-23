@@ -25,3 +25,4 @@ relationship 'Dim_Vendedores_ID do Vendedor_Fato_Itens_Pedido_ID do Vendedor'
 relationship 'Dim_Calendario_Data_Fato_Pedidos_Data da Compra (Dia)'
 	fromColumn: Fato_Pedidos.'Data da Compra (Dia)'
 	toColumn: Dim_Calendario.Data
+

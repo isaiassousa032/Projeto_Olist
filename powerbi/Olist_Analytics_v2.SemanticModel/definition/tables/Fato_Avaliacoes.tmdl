@@ -82,3 +82,4 @@ table Fato_Avaliacoes
 				    FCT_ORDER_REVIEWS_Table
 
 	annotation PBI_ResultType = Table
+
