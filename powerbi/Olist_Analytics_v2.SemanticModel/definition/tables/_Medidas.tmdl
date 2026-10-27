@@ -4,7 +4,7 @@ table _Medidas
 
 	/// Quantidade de registros de pedidos no contexto atual. Inclui todos os status e não representa automaticamente pedidos concluídos.
 	measure 'Pedidos Registrados' = COUNTROWS('Fato_Pedidos')
-		formatString: #,##0
+		formatString: 0
 		displayFolder: 01 - Pedidos
 		lineageTag: e183d325-e9b7-4d9a-a9d0-a3a8d0b5609a
 
@@ -271,15 +271,12 @@ table _Medidas
 
 	/// Variação percentual mensal do valor dos itens entregues entre o mês atual e o mês anterior, baseada na Data da Compra. Só é apresentada para um único Ano-Mes com denominador válido.
 	measure 'Variação Mensal Valor Entregue (%)' =
-			VAR Atual = [Valor dos Itens Entregues]
-			VAR Anterior = [Valor dos Itens Entregues Mês Anterior]
-			RETURN
-			IF(
-			    HASONEVALUE('Dim_Calendario'[Ano-Mes])
-			        && NOT ISBLANK(Anterior)
-			        && Anterior <> 0,
-			    DIVIDE(Atual - Anterior, Anterior)
-			)
+			
+			VAR MesRef = MAXX(FILTER(VALUES('Dim_Calendario'[AnoMesOrdem]), NOT ISBLANK(CALCULATE([Valor dos Itens Entregues]))), 'Dim_Calendario'[AnoMesOrdem])
+			VAR Inicio = IF(NOT ISBLANK(MesRef), DATE(INT(MesRef / 100), MOD(MesRef, 100), 1))
+			VAR Atual = IF(NOT ISBLANK(Inicio), CALCULATE([Valor dos Itens Entregues], REMOVEFILTERS('Dim_Calendario'), DATESBETWEEN('Dim_Calendario'[Data], Inicio, EOMONTH(Inicio, 0))))
+			VAR Anterior = IF(NOT ISBLANK(Inicio), CALCULATE([Valor dos Itens Entregues], REMOVEFILTERS('Dim_Calendario'), DATESBETWEEN('Dim_Calendario'[Data], EDATE(Inicio, -1), EOMONTH(Inicio, -1))))
+			RETURN IF(NOT ISBLANK(Atual) && NOT ISBLANK(Anterior) && Anterior <> 0, DIVIDE(Atual - Anterior, Anterior))
 		formatString: 0.00%
 		displayFolder: 06 - Inteligência Temporal
 		lineageTag: 6396fa13-3fff-4522-af2e-6fb6beda4ff5
@@ -299,15 +296,12 @@ table _Medidas
 
 	/// Variação percentual anual do valor dos itens entregues entre o mês atual e o mesmo mês do ano anterior, baseada na Data da Compra. Só é apresentada para um único Ano-Mes com denominador válido.
 	measure 'Variação Anual Valor Entregue (%)' =
-			VAR Atual = [Valor dos Itens Entregues]
-			VAR Anterior = [Valor dos Itens Entregues Ano Anterior]
-			RETURN
-			IF(
-			    HASONEVALUE('Dim_Calendario'[Ano-Mes])
-			        && NOT ISBLANK(Anterior)
-			        && Anterior <> 0,
-			    DIVIDE(Atual - Anterior, Anterior)
-			)
+			
+			VAR MesRef = MAXX(FILTER(VALUES('Dim_Calendario'[AnoMesOrdem]), NOT ISBLANK(CALCULATE([Valor dos Itens Entregues]))), 'Dim_Calendario'[AnoMesOrdem])
+			VAR Inicio = IF(NOT ISBLANK(MesRef), DATE(INT(MesRef / 100), MOD(MesRef, 100), 1))
+			VAR Atual = IF(NOT ISBLANK(Inicio), CALCULATE([Valor dos Itens Entregues], REMOVEFILTERS('Dim_Calendario'), DATESBETWEEN('Dim_Calendario'[Data], Inicio, EOMONTH(Inicio, 0))))
+			VAR Anterior = IF(NOT ISBLANK(Inicio), CALCULATE([Valor dos Itens Entregues], REMOVEFILTERS('Dim_Calendario'), DATESBETWEEN('Dim_Calendario'[Data], EDATE(Inicio, -12), EOMONTH(Inicio, -12))))
+			RETURN IF(NOT ISBLANK(Atual) && NOT ISBLANK(Anterior) && Anterior <> 0, DIVIDE(Atual - Anterior, Anterior))
 		formatString: 0.00%
 		displayFolder: 06 - Inteligência Temporal
 		lineageTag: fcdcdfbd-0ce5-4bfd-9068-9242b0c749d6

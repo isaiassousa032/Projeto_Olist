@@ -4,10 +4,10 @@
   "position": {
     "x": 50,
     "y": 570,
-    "z": 1000,
-    "height": 250,
-    "width": 590,
-    "tabOrder": 1000
+    "z": 3000,
+    "height": 216,
+    "width": 992,
+    "tabOrder": 3000
   },
   "visual": {
     "visualType": "barChart",
@@ -100,7 +100,14 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "11D"
+                }
+              }
+            },
+            "maxMarginFactor": {
+              "expr": {
+                "Literal": {
+                  "Value": "20L"
                 }
               }
             }

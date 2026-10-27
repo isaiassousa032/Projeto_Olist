@@ -38,6 +38,17 @@ table Dim_Vendedores
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'ID do Vendedor (exibição)' =
+			
+			VAR Identificador = 'Dim_Vendedores'[ID do Vendedor]
+			VAR Prefixo = LEFT(Identificador, 8)
+			VAR Ocorrencias = COUNTROWS(FILTER(ALL('Dim_Vendedores'[ID do Vendedor]), LEFT('Dim_Vendedores'[ID do Vendedor], 8) = Prefixo))
+			RETURN IF(Ocorrencias = 1, Prefixo, Identificador)
+		lineageTag: 9f38e17d-fdee-473f-ba60-002f7e45145b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition DIM_SELLERS = m
 		mode: import
 		source =

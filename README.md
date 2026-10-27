@@ -167,7 +167,11 @@ Projeto_Olist_v2/
 │       ├── validacao_insights.ipynb
 │       └── README.md
 ├── assets/
-│   └── backgrounds/                      # Fundos das três páginas do relatório
+│   ├── backgrounds/                      # Fundos das três páginas do relatório
+│   └── dashboard/                        # Prévias animadas do relatório
+│       ├── 01-visao-executiva.gif
+│       ├── 02-produtos-vendedores.gif
+│       └── 03-logistica-satisfacao.gif
 ├── docs/
 │   ├── arquitetura-de-dados-olist-v2.png
 │   ├── insights-negocio.md
@@ -235,19 +239,19 @@ O relatório possui três páginas:
 2. **02 — Produtos e Vendedores:** categorias, itens e desempenho de vendedores.
 3. **03 — Logística e Satisfação:** prazo de entrega, atrasos e avaliações.
 
-As capturas serão adicionadas manualmente. Espaços reservados:
+Prévias animadas das três páginas do relatório:
 
 ### Visão Executiva
 
-_Captura de tela a inserir._
+![Dashboard Olist V2 — Visão Executiva](assets/dashboard/01-visao-executiva.gif)
 
 ### Produtos e Vendedores
 
-_Captura de tela a inserir._
+![Dashboard Olist V2 — Produtos e Vendedores](assets/dashboard/02-produtos-vendedores.gif)
 
 ### Logística e Satisfação
 
-_Captura de tela a inserir._
+![Dashboard Olist V2 — Logística e Satisfação](assets/dashboard/03-logistica-satisfacao.gif)
 
 ## 12. Principais indicadores e insights
 
@@ -310,7 +314,6 @@ dbt test
 - Adicionar testes singulares para regras financeiras e cobertura temporal.
 - Automatizar atualização e monitoramento do pipeline.
 - Acrescentar análise de recompra, coortes, SLA por vendedor e comentários.
-- Publicar as capturas do dashboard após revisão dos indicadores.
 
 ## Autor
 

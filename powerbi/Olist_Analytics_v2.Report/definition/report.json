@@ -9,6 +9,15 @@
         "page": "2.3.1"
       },
       "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Custom28930684579238575.json",
+      "reportVersionAtImport": {
+        "visual": "2.14.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "RegisteredResources"
     }
   },
   "objects": {
@@ -69,6 +78,11 @@
           "name": "03-Logistica-e-Satisfacao-Fundo-20261023111028.png",
           "path": "03-Logistica-e-Satisfacao-Fundo-20261023111028.png",
           "type": "Image"
+        },
+        {
+          "name": "Custom28930684579238575.json",
+          "path": "Custom28930684579238575.json",
+          "type": "CustomTheme"
         }
       ]
     }

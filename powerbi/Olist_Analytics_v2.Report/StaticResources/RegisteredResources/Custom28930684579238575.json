@@ -1,0 +1,14 @@
+{
+  "name": "Custom",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "border": [
+          {
+            "show": true
+          }
+        ]
+      }
+    }
+  }
+}

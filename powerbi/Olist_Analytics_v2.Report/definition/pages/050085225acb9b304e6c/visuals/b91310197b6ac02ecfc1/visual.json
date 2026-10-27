@@ -1,20 +1,19 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "b91310197b6ac02ecfc1",
   "position": {
-    "x": 1445,
-    "y": 25,
-    "z": 2000,
-    "height": 65,
-    "width": 255,
-    "tabOrder": 2000
+    "x": 1381.1612903225807,
+    "y": 24.774193548387096,
+    "z": 13000,
+    "height": 64,
+    "width": 229.16129032258064,
+    "tabOrder": 13000
   },
   "visual": {
     "visualType": "actionButton",
     "query": {
       "queryState": {}
     },
-    "drillFilterOtherVisuals": true,
     "objects": {
       "fill": [
         {
@@ -23,24 +22,6 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
-                }
-              }
-            },
-            "fillColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#FFFFFF'"
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "100D"
                 }
               }
             }
@@ -65,10 +46,8 @@
             "id": "default"
           }
         }
-      ]
-    },
-    "visualContainerObjects": {
-      "title": [
+      ],
+      "icon": [
         {
           "properties": {
             "show": {
@@ -80,18 +59,17 @@
             }
           }
         }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {}
+        }
       ],
       "background": [
         {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
+          "properties": {}
         }
       ],
       "visualLink": [
@@ -117,10 +95,44 @@
                   "Value": "'8b7f6e5d4c3b2a190817'"
                 }
               }
+            },
+            "tooltip": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Ir para Produtos e Vendedores'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Transparent'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
             }
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

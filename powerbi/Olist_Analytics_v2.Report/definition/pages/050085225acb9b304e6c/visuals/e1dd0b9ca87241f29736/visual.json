@@ -1,20 +1,19 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "e1dd0b9ca87241f29736",
   "position": {
-    "x": 1725,
-    "y": 25,
-    "z": 2000,
-    "height": 65,
-    "width": 205,
-    "tabOrder": 2000
+    "x": 1643.3548387096773,
+    "y": 24.774193548387096,
+    "z": 14000,
+    "height": 64,
+    "width": 212.64516129032259,
+    "tabOrder": 14000
   },
   "visual": {
     "visualType": "actionButton",
     "query": {
       "queryState": {}
     },
-    "drillFilterOtherVisuals": true,
     "objects": {
       "fill": [
         {
@@ -23,24 +22,6 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
-                }
-              }
-            },
-            "fillColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#FFFFFF'"
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "100D"
                 }
               }
             }
@@ -70,28 +51,12 @@
     "visualContainerObjects": {
       "title": [
         {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
+          "properties": {}
         }
       ],
       "background": [
         {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
+          "properties": {}
         }
       ],
       "visualLink": [
@@ -117,10 +82,44 @@
                   "Value": "'9c8d7e6f5a4b3c2d1e0f'"
                 }
               }
+            },
+            "tooltip": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Ir para Logística e Satisfação'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Transparent'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
             }
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

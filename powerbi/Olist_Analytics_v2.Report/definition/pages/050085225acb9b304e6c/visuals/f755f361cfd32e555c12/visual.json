@@ -4,10 +4,10 @@
   "position": {
     "x": 50,
     "y": 570,
-    "z": 1000,
-    "height": 230,
-    "width": 1095,
-    "tabOrder": 1000
+    "z": 12000,
+    "height": 215.55555555555554,
+    "width": 1095.5555555555554,
+    "tabOrder": 12000
   },
   "visual": {
     "visualType": "lineChart",
@@ -93,6 +93,17 @@
                   "Value": "72D"
                 }
               }
+            },
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#242424'"
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -127,12 +138,35 @@
                   "Value": "false"
                 }
               }
+            },
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#242424'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "lineStyles": [
+        {
+          "properties": {
+            "areaShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             }
           }
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -160,6 +194,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

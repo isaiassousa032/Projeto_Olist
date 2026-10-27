@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "6973438dd97bad8646bb",
   "position": {
-    "x": 54,
-    "y": 250,
-    "z": 500,
-    "height": 60,
-    "width": 614,
-    "tabOrder": 500
+    "x": 53.636363636363633,
+    "y": 249.99999999999997,
+    "z": 1000,
+    "height": 44.54545454545454,
+    "width": 588.18181818181813,
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "slicer",
@@ -28,7 +28,8 @@
               },
               "queryRef": "Dim_Calendario.Ano",
               "nativeQueryRef": "Ano",
-              "active": true
+              "active": true,
+              "format": "0"
             }
           ]
         }
@@ -60,9 +61,13 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {}
+        }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "title": [
         {
@@ -90,6 +95,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }
