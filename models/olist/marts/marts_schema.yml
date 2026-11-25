@@ -1,0 +1,205 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Uma linha por customer_id; localização referente ao cadastro do pedido, não à residência histórica do comprador."
+    columns:
+      - name: customer_id
+        description: "Chave do cliente associado ao pedido."
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_unique_id
+        description: "Identifica o mesmo comprador entre pedidos; não é único nesta dimensão."
+        data_tests:
+          - not_null
+      - name: zip_code
+        description: "Prefixo de CEP do cliente como recebido no staging."
+      - name: city
+        description: "Cidade do cliente."
+      - name: state
+        description: "UF do cliente."
+
+  - name: dim_products
+    description: "Uma linha por produto; categorias sem tradução permanecem na dimensão."
+    columns:
+      - name: product_id
+        description: "Chave natural do produto."
+        data_tests:
+          - unique
+          - not_null
+      - name: category_name_pt
+        description: "Categoria original em português, quando informada."
+      - name: category_name_en
+        description: "Tradução para inglês, quando disponível."
+      - name: name_length
+        description: "Comprimento do nome do produto."
+      - name: description_length
+        description: "Comprimento da descrição do produto."
+      - name: photos_count
+        description: "Quantidade de fotos do produto."
+      - name: weight_g
+        description: "Peso em gramas."
+      - name: length_cm
+        description: "Comprimento em centímetros."
+      - name: height_cm
+        description: "Altura em centímetros."
+      - name: width_cm
+        description: "Largura em centímetros."
+
+  - name: dim_sellers
+    description: "Uma linha por vendedor."
+    columns:
+      - name: seller_id
+        description: "Chave natural do vendedor."
+        data_tests:
+          - unique
+          - not_null
+      - name: zip_code_prefix
+        description: "Prefixo de CEP do vendedor."
+      - name: city
+        description: "Cidade do vendedor."
+      - name: state
+        description: "UF do vendedor."
+
+  - name: dim_geography
+    description: "Uma linha por prefixo de CEP. Escolhe o par cidade/UF mais frequente, desempata por UF e cidade e calcula as coordenadas médias desse par."
+    columns:
+      - name: zip_code_prefix
+        description: "Prefixo de CEP usado para agrupar os registros de geolocalização."
+        data_tests:
+          - unique
+          - not_null
+      - name: city
+        description: "Cidade mais frequente para o prefixo."
+      - name: state
+        description: "UF mais frequente para o prefixo."
+      - name: latitude
+        description: "Latitude média dos registros do par cidade/UF selecionado."
+      - name: longitude
+        description: "Longitude média dos registros do par cidade/UF selecionado."
+      - name: location_count
+        description: "Número de registros geográficos do par selecionado, não do prefixo inteiro."
+
+  - name: fct_orders
+    description: "Uma linha por pedido; preserva todos os status e marcos de tempo, sem definir receita nem restringir pedidos válidos."
+    columns:
+      - name: order_id
+        description: "Chave natural do pedido."
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Chave do cliente do pedido."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
+      - name: status
+        description: "Status atual do pedido."
+      - name: purchased_at
+        description: "Data e hora da compra."
+      - name: approved_at
+        description: "Data e hora da aprovação, se houver."
+      - name: delivered_to_carrier_at
+        description: "Data e hora de entrega à transportadora, se houver."
+      - name: delivered_to_customer_at
+        description: "Data e hora da entrega ao cliente, se houver."
+      - name: estimated_delivery_at
+        description: "Previsão de entrega."
+
+  - name: fct_order_items
+    description: "Uma linha por (order_id, order_item_id); preço e frete pertencem ao item, não ao pagamento."
+    columns:
+      - name: order_item_key
+        description: "Chave composta formada por order_id e order_item_id."
+        data_tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: "Pedido do item."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fct_orders')
+                field: order_id
+      - name: order_item_id
+        description: "Número sequencial do item no pedido."
+      - name: customer_id
+        description: "Cliente do pedido; herdado do cabeçalho."
+      - name: purchased_at
+        description: "Data e hora da compra; herdadas do pedido."
+      - name: product_id
+        description: "Produto vendido."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_id
+      - name: seller_id
+        description: "Vendedor do item."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_sellers')
+                field: seller_id
+      - name: shipping_limit_date
+        description: "Prazo de envio do item."
+      - name: item_price
+        description: "Preço do item, sem frete."
+      - name: freight_price
+        description: "Valor de frete do item."
+
+  - name: fct_order_payments
+    description: "Uma linha por (order_id, payment_sequential); pagamentos não são distribuídos entre itens."
+    columns:
+      - name: order_payment_key
+        description: "Chave composta formada por order_id e payment_sequential."
+        data_tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: "Pedido pago."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fct_orders')
+                field: order_id
+      - name: payment_sequential
+        description: "Sequência do pagamento dentro do pedido."
+      - name: purchased_at
+        description: "Data e hora da compra; herdadas do pedido."
+      - name: payment_type
+        description: "Modalidade de pagamento."
+      - name: installments_count
+        description: "Número de parcelas informado para o pagamento."
+      - name: payment_amount
+        description: "Valor desse pagamento; não confundir com preço dos itens."
+
+  - name: fct_order_reviews
+    description: "Uma linha por registro de avaliação da origem; review_id e order_id podem se repetir."
+    columns:
+      - name: review_id
+        description: "ID informado na avaliação; não é chave única nesta origem."
+      - name: order_id
+        description: "Pedido avaliado."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fct_orders')
+                field: order_id
+      - name: rating
+        description: "Nota do pedido entre 1 e 5."
+      - name: comment_title
+        description: "Título do comentário, quando informado."
+      - name: comment_message
+        description: "Mensagem do comentário, quando informada."
+      - name: review_created_at
+        description: "Data de criação da avaliação."
+      - name: review_answered_at
+        description: "Data da resposta à avaliação, quando disponível."

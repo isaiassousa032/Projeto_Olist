@@ -1,0 +1,962 @@
+{
+  "tables": [
+    {
+      "id": "UGIXX9ONT9jRbddb9z6Y4",
+      "name": "CUSTOMERS",
+      "x": 50,
+      "y": 560,
+      "locked": false,
+      "fields": [
+        {
+          "name": "customer_id",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": "GI50547QX2GWJbL8Ccc9b"
+        },
+        {
+          "id": "vHyEZKtrd3UzMxtMMXsv7",
+          "name": "customer_unique_id",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "OHySUb3zCgAmCt9puYEVz",
+          "name": "customer_zip_code_prefix",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "IDN5L5jO3gNNP1JjGTFjb",
+          "name": "customer_city",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "uOeAwk-D6YMheAaawcTx-",
+          "name": "customer_state",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        }
+      ],
+      "comment": "Cadastro associado ao pedido. Identificador de negócio: customer_id. customer_unique_id identifica o comprador entre compras; não é único. Sem PK física no script RAW.",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#277D9B",
+      "collapsed": false,
+      "width": 450
+    },
+    {
+      "id": "5BolwmYNVdCRMdchv6IUM",
+      "name": "ORDERS",
+      "x": 700,
+      "y": 560,
+      "locked": false,
+      "fields": [
+        {
+          "name": "order_id",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": "7Ae49FQc3NkeVc0gFPYle"
+        },
+        {
+          "id": "h06MxcQ9xWb8sW17GpfRq",
+          "name": "customer_id",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "Associação lógica com CUSTOMERS.customer_id. Não é uma FOREIGN KEY física declarada no script RAW."
+        },
+        {
+          "id": "s8IYmiMkXzJRgTm7jw9-p",
+          "name": "order_status",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "GEaZzO_AcSRUtbxkmYpPr",
+          "name": "order_purchase_timestamp",
+          "type": "TIMESTAMP_NTZ",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "7jfSjg2vHCYmh7EB8wb4r",
+          "name": "order_approved_at",
+          "type": "TIMESTAMP_NTZ",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "-zllm12mpjghzufN_wqRg",
+          "name": "order_delivered_carrier_date",
+          "type": "TIMESTAMP_NTZ",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "59Ut9PafGjil_JBIJe-V6",
+          "name": "order_delivered_customer_date",
+          "type": "TIMESTAMP_NTZ",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "q3DAl1-3O_Iz046pzao03",
+          "name": "order_estimated_delivery_date",
+          "type": "TIMESTAMP_NTZ",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        }
+      ],
+      "comment": "Uma linha por pedido da origem. Identificador de negócio: order_id. Preserva status e datas da fonte, em TIMESTAMP_NTZ. Sem PK ou FK física no script RAW.",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#9B6548",
+      "collapsed": false,
+      "width": 610
+    },
+    {
+      "id": "dY3_Pz6ZiVE4obUoSOXQI",
+      "name": "ORDER_ITEMS",
+      "x": 1630,
+      "y": 560,
+      "locked": false,
+      "fields": [
+        {
+          "name": "order_id",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "Associação lógica com ORDERS.order_id. Não é uma FOREIGN KEY física declarada no script RAW.",
+          "id": "uBzTXONrf5xbdxB0YBBQd"
+        },
+        {
+          "id": "cmX8sP2jag8QX9e-ML1J1",
+          "name": "order_item_id",
+          "type": "NUMBER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "size": "38,0"
+        },
+        {
+          "id": "GN5egxlebOG1KyqlW1mxu",
+          "name": "product_id",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "Associação lógica com PRODUCTS.product_id. Não é uma FOREIGN KEY física declarada no script RAW."
+        },
+        {
+          "id": "huCR4oVB7vzfMTKKZteL2",
+          "name": "seller_id",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "Associação lógica com SELLERS.seller_id. Não é uma FOREIGN KEY física declarada no script RAW."
+        },
+        {
+          "id": "ZDOEze9-ZPGmkEEu5rep7",
+          "name": "shipping_limit_date",
+          "type": "TIMESTAMP_NTZ",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "r5EWp0kaV8-LtTpaxRqmO",
+          "name": "price",
+          "type": "NUMBER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "size": "12,2"
+        },
+        {
+          "id": "fJae96ViStQ7wzniSxexW",
+          "name": "freight_value",
+          "type": "NUMBER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "size": "12,2"
+        }
+      ],
+      "comment": "Uma linha por (order_id, order_item_id). Chave de negócio composta, sem PK física no script RAW. price e freight_value preservados da origem.",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#9B6548",
+      "collapsed": false,
+      "width": 550
+    },
+    {
+      "id": "QRKOlJSigMetOXJRxI608",
+      "name": "SELLERS",
+      "x": 2510,
+      "y": 1100,
+      "locked": false,
+      "fields": [
+        {
+          "name": "seller_id",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": "zqoHl7KgjjTuXYwPVEgRY"
+        },
+        {
+          "id": "B1zbXCYSAvOaHFjpa2vk8",
+          "name": "seller_zip_code_prefix",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "sghDfEq4Kec_784j4Y5O7",
+          "name": "seller_city",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "GEVcA6aLeTIiajcn5dOm3",
+          "name": "seller_state",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        }
+      ],
+      "comment": "Cadastro do vendedor da origem, identificado por seller_id. Sem PK física no script RAW.",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#277D9B",
+      "collapsed": false,
+      "width": 540
+    },
+    {
+      "id": "EnYayu91QJq7k_hdU1qN7",
+      "name": "PRODUCTS",
+      "x": 2510,
+      "y": 560,
+      "locked": false,
+      "fields": [
+        {
+          "name": "product_id",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": "DbjreaoZMOQkK6Ilt3Viv"
+        },
+        {
+          "id": "kuIUB478ijsNRGBGHK6nP",
+          "name": "product_category_name",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "Associação lógica com PRODUCT_CATEGORY_NAME_TRANSLATION.product_category_name. Não é uma FOREIGN KEY física declarada no script RAW."
+        },
+        {
+          "id": "YgYBwoTFbqKlQzZiBX-B-",
+          "name": "product_name_lenght",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "DngBHpmcH2BxTUWWcw-xZ",
+          "name": "product_description_lenght",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "qqivihZ-HScGeXG3_sLRX",
+          "name": "product_photos_qty",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "EqcJ49sljpTlLacE4zP_0",
+          "name": "product_weight_g",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "MJi5wcmyAE7vuXagoeTXz",
+          "name": "product_length_cm",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "VswImacKrhlQ5MpVX2b5B",
+          "name": "product_height_cm",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "_9ZtgeFJwj_I8dXyj_9V-",
+          "name": "product_width_cm",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        }
+      ],
+      "comment": "Um produto da origem, identificado por product_id. Campos product_name_lenght e product_description_lenght mantêm a grafia original do CSV. Sem PK física.",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#277D9B",
+      "collapsed": false,
+      "width": 540
+    },
+    {
+      "id": "7L93GMnIHk8FwP_bJNyvQ",
+      "name": "GEOLOCATION",
+      "x": 50,
+      "y": 1010,
+      "locked": false,
+      "fields": [
+        {
+          "name": "geolocation_zip_code_prefix",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": "QzsgJUrA9kEiF6pNv-bj9"
+        },
+        {
+          "id": "cT_yUjqFLCee16AzWszwE",
+          "name": "geolocation_lat",
+          "type": "NUMBER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "size": "38,20"
+        },
+        {
+          "id": "zOicSsLUeqkNeDQsRiYwB",
+          "name": "geolocation_lng",
+          "type": "NUMBER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "size": "38,20"
+        },
+        {
+          "id": "chw4dr93KNbjU3_Je4xmE",
+          "name": "geolocation_city",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "b2a8EKVlDrshD50Iyp2c1",
+          "name": "geolocation_state",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        }
+      ],
+      "comment": "Um registro geográfico da origem. Prefixo de CEP pode se repetir. Sem geolocation_id e sem PK física. Não é destino de FK por prefixo; a consolidação ocorre em dim_geography nos marts.",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#7B96A8",
+      "collapsed": false,
+      "width": 540
+    },
+    {
+      "id": "rO0MbrmiixuyDYT9U6izp",
+      "name": "PRODUCT_CATEGORY_NAME_TRANSLATION",
+      "x": 3300,
+      "y": 30,
+      "locked": false,
+      "fields": [
+        {
+          "name": "product_category_name",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": "fimenV12JEaxCqopRfjpo"
+        },
+        {
+          "id": "0vYUWOytCORlxLFIQmXXo",
+          "name": "product_category_name_english",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        }
+      ],
+      "comment": "Traduções de categorias da origem. Nenhuma inclusão de categorias ausentes é feita no script de carga RAW. A relação com PRODUCTS é apenas uma associação lógica de consulta; a tradução pode não existir.",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#277D9B",
+      "collapsed": false,
+      "width": 620
+    },
+    {
+      "id": "AJaqJ1hoHXxL0G8opM8oW",
+      "name": "ORDER_REVIEWS",
+      "x": 1630,
+      "y": 1180,
+      "locked": false,
+      "fields": [
+        {
+          "name": "review_id",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "id": "W6jCEWy09SxhFcvRzK81w"
+        },
+        {
+          "id": "_x01cz4xiRNhq5bCZij5F",
+          "name": "order_id",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "Associação lógica com ORDERS.order_id. Não é uma FOREIGN KEY física declarada no script RAW."
+        },
+        {
+          "id": "vnKtAFX-udV0dKZwA7wJc",
+          "name": "review_score",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "_FzPijXbXKC0MT7HrTzw2",
+          "name": "review_comment_title",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "8VSulkzhceXlMAIKmbiQM",
+          "name": "review_comment_message",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "6kvUxl-E_XTNgMAumL0Ru",
+          "name": "review_creation_date",
+          "type": "TIMESTAMP_NTZ",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "ArdhssnuEmp7ILfTec2U3",
+          "name": "review_answer_timestamp",
+          "type": "TIMESTAMP_NTZ",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        }
+      ],
+      "comment": "Um registro de avaliação da origem. review_id e order_id podem se repetir. Sem review_row_id e sem PK física no script RAW.",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#9B6548",
+      "collapsed": false,
+      "width": 550
+    },
+    {
+      "id": "RDp9ehQ659Mw3fQabrFMb",
+      "name": "ORDER_PAYMENTS",
+      "x": 1630,
+      "y": 30,
+      "locked": false,
+      "fields": [
+        {
+          "name": "order_id",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "Associação lógica com ORDERS.order_id. Não é uma FOREIGN KEY física declarada no script RAW.",
+          "id": "apuWNCMvqtU_wb1gT148I"
+        },
+        {
+          "id": "B5VJtEvdbWzGdXvzojS-b",
+          "name": "payment_sequential",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "eYF7EJeRO1tXN70NE3E7D",
+          "name": "payment_type",
+          "type": "VARCHAR",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "KoujR1nAJPnSdySBvMkhC",
+          "name": "payment_installments",
+          "type": "INTEGER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": ""
+        },
+        {
+          "id": "-W8uraVxxa0FW8wJo44fM",
+          "name": "payment_value",
+          "type": "NUMBER",
+          "default": "",
+          "check": "",
+          "primary": false,
+          "unique": false,
+          "notNull": false,
+          "increment": false,
+          "comment": "",
+          "size": "12,2"
+        }
+      ],
+      "comment": "Uma linha por (order_id, payment_sequential). Chave de negócio composta, sem PK física. Uma sequência de pagamento não corresponde necessariamente a uma parcela.",
+      "indices": [],
+      "uniqueConstraints": [],
+      "color": "#9B6548",
+      "collapsed": false,
+      "width": 550
+    }
+  ],
+  "relationships": [
+    {
+      "id": "ujGcqJl9XQOXWnB60PGXp",
+      "name": "orders_customer",
+      "startTableId": "5BolwmYNVdCRMdchv6IUM",
+      "endTableId": "UGIXX9ONT9jRbddb9z6Y4",
+      "fields": [
+        {
+          "startFieldId": "h06MxcQ9xWb8sW17GpfRq",
+          "endFieldId": "GI50547QX2GWJbL8Ccc9b"
+        }
+      ],
+      "startFieldId": "h06MxcQ9xWb8sW17GpfRq",
+      "endFieldId": "GI50547QX2GWJbL8Ccc9b",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action"
+    },
+    {
+      "id": "SVW-qgnOr205DT1-oqzSH",
+      "name": "items_order",
+      "startTableId": "dY3_Pz6ZiVE4obUoSOXQI",
+      "endTableId": "5BolwmYNVdCRMdchv6IUM",
+      "fields": [
+        {
+          "startFieldId": "uBzTXONrf5xbdxB0YBBQd",
+          "endFieldId": "7Ae49FQc3NkeVc0gFPYle"
+        }
+      ],
+      "startFieldId": "uBzTXONrf5xbdxB0YBBQd",
+      "endFieldId": "7Ae49FQc3NkeVc0gFPYle",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action"
+    },
+    {
+      "id": "VRjdB8nfYxUda34nkybMp",
+      "name": "items_product",
+      "startTableId": "dY3_Pz6ZiVE4obUoSOXQI",
+      "endTableId": "EnYayu91QJq7k_hdU1qN7",
+      "fields": [
+        {
+          "startFieldId": "GN5egxlebOG1KyqlW1mxu",
+          "endFieldId": "DbjreaoZMOQkK6Ilt3Viv"
+        }
+      ],
+      "startFieldId": "GN5egxlebOG1KyqlW1mxu",
+      "endFieldId": "DbjreaoZMOQkK6Ilt3Viv",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action"
+    },
+    {
+      "id": "j_4pzD2xG5BCVS8EO8iam",
+      "name": "items_seller",
+      "startTableId": "dY3_Pz6ZiVE4obUoSOXQI",
+      "endTableId": "QRKOlJSigMetOXJRxI608",
+      "fields": [
+        {
+          "startFieldId": "huCR4oVB7vzfMTKKZteL2",
+          "endFieldId": "zqoHl7KgjjTuXYwPVEgRY"
+        }
+      ],
+      "startFieldId": "huCR4oVB7vzfMTKKZteL2",
+      "endFieldId": "zqoHl7KgjjTuXYwPVEgRY",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action"
+    },
+    {
+      "id": "tAu6ci98wcuDELxbtEGfx",
+      "name": "products_category",
+      "startTableId": "EnYayu91QJq7k_hdU1qN7",
+      "endTableId": "rO0MbrmiixuyDYT9U6izp",
+      "fields": [
+        {
+          "startFieldId": "kuIUB478ijsNRGBGHK6nP",
+          "endFieldId": "fimenV12JEaxCqopRfjpo"
+        }
+      ],
+      "startFieldId": "kuIUB478ijsNRGBGHK6nP",
+      "endFieldId": "fimenV12JEaxCqopRfjpo",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action"
+    },
+    {
+      "id": "nT_o47S85G-0ExA2abd9j",
+      "name": "reviews_order",
+      "startTableId": "AJaqJ1hoHXxL0G8opM8oW",
+      "endTableId": "5BolwmYNVdCRMdchv6IUM",
+      "fields": [
+        {
+          "startFieldId": "_x01cz4xiRNhq5bCZij5F",
+          "endFieldId": "7Ae49FQc3NkeVc0gFPYle"
+        }
+      ],
+      "startFieldId": "_x01cz4xiRNhq5bCZij5F",
+      "endFieldId": "7Ae49FQc3NkeVc0gFPYle",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action"
+    },
+    {
+      "id": "zhY4xea-z0CVZwaWJSqAC",
+      "name": "payments_order",
+      "startTableId": "RDp9ehQ659Mw3fQabrFMb",
+      "endTableId": "5BolwmYNVdCRMdchv6IUM",
+      "fields": [
+        {
+          "startFieldId": "apuWNCMvqtU_wb1gT148I",
+          "endFieldId": "7Ae49FQc3NkeVc0gFPYle"
+        }
+      ],
+      "startFieldId": "apuWNCMvqtU_wb1gT148I",
+      "endFieldId": "7Ae49FQc3NkeVc0gFPYle",
+      "cardinality": "many_to_one",
+      "updateConstraint": "No action",
+      "deleteConstraint": "No action"
+    }
+  ],
+  "notes": [
+    {
+      "id": 0,
+      "x": 50,
+      "y": 30,
+      "width": 1260,
+      "height": 114,
+      "title": "Olist v2 | Estrutura física da camada RAW",
+      "content": "OLIST.RAW · Snowflake · 9 tabelas · 52 colunas da origem\nColunas, tipos e nulabilidade conforme o script de criação RAW.\nAs 7 linhas representam associações lógicas de consulta; não são FKs físicas.",
+      "color": "#dcebf2",
+      "locked": false
+    },
+    {
+      "id": 1,
+      "x": 50,
+      "y": 250,
+      "width": 450,
+      "height": 162,
+      "title": "Integridade física documentada",
+      "content": "O script RAW não declara PK, FK, UNIQUE, NOT NULL, CHECK, IDENTITY ou índices.\nTodos os campos admitem NULL no DDL de referência.\nAs cardinalidades indicam associações lógicas de negócio, sem impor integridade referencial.",
+      "color": "#e8edf2",
+      "locked": false
+    },
+    {
+      "id": 2,
+      "x": 700,
+      "y": 1010,
+      "width": 610,
+      "height": 378,
+      "title": "Grãos e identificadores de negócio",
+      "content": "CUSTOMERS → customer_id\nORDERS → order_id\nPRODUCTS → product_id\nSELLERS → seller_id\n\nORDER_ITEMS → (order_id, order_item_id)\nORDER_PAYMENTS → (order_id, payment_sequential)\n\nORDER_REVIEWS → registro de avaliação\nreview_id e order_id podem se repetir.\nGEOLOCATION → registro geográfico; CEP pode se repetir.\nPRODUCT_CATEGORY_NAME_TRANSLATION → categoria da origem.\n\nIdentificadores de negócio não equivalem a PKs físicas.",
+      "color": "#f4e9df",
+      "locked": false
+    },
+    {
+      "id": 3,
+      "x": 50,
+      "y": 1320,
+      "width": 540,
+      "height": 138,
+      "title": "Geolocalização preservada da origem",
+      "content": "Sem geolocation_id ou PK técnica.\nCoordenadas: NUMBER(38,20).\nNão relacionar clientes/vendedores diretamente ao prefixo não único. O mart dim_geography consolida uma linha por prefixo.",
+      "color": "#e8edf2",
+      "locked": false
+    },
+    {
+      "id": 4,
+      "x": 2510,
+      "y": 1360,
+      "width": 620,
+      "height": 138,
+      "title": "Fontes e escopo",
+      "content": "Estrutura: snowflake_scripts/06_cria_tabelas_raw.sql\nCarga dos 9 CSVs: 07_carga_tabelas_raw.sql\nOs nomes originais do dataset são preservados.\nNenhum DDL foi executado nesta revisão.",
+      "color": "#e8edf2",
+      "locked": false
+    },
+    {
+      "id": 5,
+      "x": 700,
+      "y": 250,
+      "width": 610,
+      "height": 138,
+      "title": "Tipos e cobertura de tradução",
+      "content": "Textos: VARCHAR sem limite declarado.\nDatas: TIMESTAMP_NTZ. Valores monetários: NUMBER(12,2).\nCategorias sem tradução podem existir: o dbt preserva produtos com LEFT JOIN. A linha PRODUCTS → traduções não afirma cobertura integral nem uma FK física.",
+      "color": "#e8edf2",
+      "locked": false
+    }
+  ],
+  "subjectAreas": [],
+  "views": [],
+  "database": "snowflake",
+  "title": "Modelagem Física RAW Olist V2 - Snowflake"
+}

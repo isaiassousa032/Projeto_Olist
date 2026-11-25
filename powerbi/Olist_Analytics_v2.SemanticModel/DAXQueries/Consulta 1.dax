@@ -1,0 +1,102 @@
+// Leitura do modelo Import aberto no Power BI Desktop; nao altera medidas ou tabelas.
+// Escopo principal: todos os status. Medidas entregues sao apresentadas separadamente.
+EVALUATE
+VAR __TotalValor = [Valor dos Itens]
+VAR __Mensal = FILTER(
+    SUMMARIZECOLUMNS('Dim_Calendario'[Ano-Mes],
+        "Pedidos", [Pedidos Registrados], "Entregues", [Pedidos Entregues],
+        "Valor", [Valor dos Itens], "ValorEntregue", [Valor dos Itens Entregues],
+        "Ticket", [Ticket Médio dos Itens], "TicketEntregue", [Ticket Médio dos Itens Entregues]),
+    [Pedidos] > 0)
+VAR __Categorias = SUMMARIZECOLUMNS('Dim_Produtos'[Categoria do Produto (Português)],
+    "Valor", [Valor dos Itens], "Itens", [Itens de Pedido], "Pedidos", [Pedidos com Itens],
+    "Participacao", [Participação do Valor dos Itens (%)])
+VAR __Vendedores = TOPN(10,
+    SUMMARIZECOLUMNS('Dim_Vendedores'[ID do Vendedor],
+        "Valor", [Valor dos Itens], "Itens", [Itens de Pedido], "Pedidos", [Pedidos com Itens]),
+    [Valor], DESC, 'Dim_Vendedores'[ID do Vendedor], ASC)
+VAR __UF = SUMMARIZECOLUMNS('Dim_Clientes'[UF],
+    "Pedidos", [Pedidos Registrados], "Entregues", [Pedidos Entregues],
+    "Valor", [Valor dos Itens], "ValorEntregue", [Valor dos Itens Entregues],
+    "Frete", [Valor do Frete], "Dias", [Tempo Médio de Entrega (Dias)],
+    "BasePrazo", [Pedidos com Entrega e Previsão], "Atrasados", [Pedidos Entregues Atrasados])
+VAR __NotaPorPedido = ADDCOLUMNS(VALUES('Fato_Avaliacoes'[ID do Pedido]),
+    "__Nota", CALCULATE(AVERAGE('Fato_Avaliacoes'[Nota da Avaliação])))
+VAR __PedidosValidos = FILTER(ALL('Fato_Pedidos'),
+    'Fato_Pedidos'[Status do Pedido] = "delivered"
+    && NOT ISBLANK('Fato_Pedidos'[Data de Entrega ao Cliente])
+    && NOT ISBLANK('Fato_Pedidos'[Data Prevista de Entrega]))
+VAR __PedidosNotas = ADDCOLUMNS(__PedidosValidos,
+    "__Grupo", IF(INT('Fato_Pedidos'[Data de Entrega ao Cliente]) > INT('Fato_Pedidos'[Data Prevista de Entrega]), "Atrasado", "No prazo"),
+    "__NotaPedido", CALCULATE(AVERAGE('Fato_Avaliacoes'[Nota da Avaliação])),
+    "__Avaliacoes", CALCULATE(COUNTROWS('Fato_Avaliacoes')),
+    "__NotasValidas", CALCULATE(COUNT('Fato_Avaliacoes'[Nota da Avaliação])))
+VAR __Atraso = GROUPBY(__PedidosNotas, [__Grupo],
+    "__Pedidos", COUNTX(CURRENTGROUP(), 1),
+    "__PedidosAvaliados", SUMX(CURRENTGROUP(), IF(NOT ISBLANK([__NotaPedido]), 1, 0)),
+    "__MediaPedido", AVERAGEX(CURRENTGROUP(), [__NotaPedido]),
+    "__DPPedido", STDEVX.S(CURRENTGROUP(), [__NotaPedido]),
+    "__AvaliacoesTotal", SUMX(CURRENTGROUP(), [__Avaliacoes]),
+    "__NotasTotal", SUMX(CURRENTGROUP(), [__NotasValidas]),
+    "__SomaNotas", SUMX(CURRENTGROUP(), [__NotaPedido] * [__NotasValidas]))
+RETURN
+UNION(
+    ROW("Analise", "00_Controle", "Grupo", "Total", "Metrica", "Pedidos", "Valor", [Pedidos Registrados]),
+    ROW("Analise", "00_Controle", "Grupo", "Total", "Metrica", "Itens", "Valor", [Itens de Pedido]),
+    ROW("Analise", "00_Controle", "Grupo", "Total", "Metrica", "Pagamentos", "Valor", [Pagamentos Registrados]),
+    ROW("Analise", "00_Controle", "Grupo", "Total", "Metrica", "Avaliacoes", "Valor", [Avaliações Registradas]),
+    ROW("Analise", "00_Controle", "Grupo", "Total", "Metrica", "ValorItens", "Valor", [Valor dos Itens]),
+    ROW("Analise", "00_Controle", "Grupo", "Total", "Metrica", "Frete", "Valor", [Valor do Frete]),
+    ROW("Analise", "00_Controle", "Grupo", "Total", "Metrica", "ValorPagamentos", "Valor", [Valor dos Pagamentos]),
+    ROW("Analise", "00_Controle", "Grupo", "Total", "Metrica", "PedidosComItens", "Valor", [Pedidos com Itens]),
+    ROW("Analise", "00_Controle", "Grupo", "Total", "Metrica", "Entregues", "Valor", [Pedidos Entregues]),
+    ROW("Analise", "00_Controle", "Grupo", "Total", "Metrica", "ProdutosSemTraducao", "Valor", COUNTROWS(FILTER(ALL('Dim_Produtos'), ISBLANK('Dim_Produtos'[Categoria do Produto (Inglês)])))),
+    ROW("Analise", "00_Controle", "Grupo", "Total", "Metrica", "ItensSemTraducao", "Valor", CALCULATE([Itens de Pedido], FILTER(ALL('Dim_Produtos'), ISBLANK('Dim_Produtos'[Categoria do Produto (Inglês)])))),
+    ROW("Analise", "00_Controle", "Grupo", FORMAT(MIN('Fato_Pedidos'[Data da Compra]), "yyyy-MM-dd HH:mm:ss"), "Metrica", "Inicio", "Valor", BLANK()),
+    ROW("Analise", "00_Controle", "Grupo", FORMAT(MAX('Fato_Pedidos'[Data da Compra]), "yyyy-MM-dd HH:mm:ss"), "Metrica", "Fim", "Valor", BLANK()),
+    SELECTCOLUMNS(__Mensal, "Analise", "01_Mensal", "Grupo", 'Dim_Calendario'[Ano-Mes], "Metrica", "Pedidos", "Valor", [Pedidos]),
+    SELECTCOLUMNS(__Mensal, "Analise", "01_Mensal", "Grupo", 'Dim_Calendario'[Ano-Mes], "Metrica", "Entregues", "Valor", [Entregues]),
+    SELECTCOLUMNS(__Mensal, "Analise", "01_Mensal", "Grupo", 'Dim_Calendario'[Ano-Mes], "Metrica", "ValorItens", "Valor", [Valor]),
+    SELECTCOLUMNS(__Mensal, "Analise", "01_Mensal", "Grupo", 'Dim_Calendario'[Ano-Mes], "Metrica", "ValorItensEntregues", "Valor", [ValorEntregue]),
+    SELECTCOLUMNS(__Mensal, "Analise", "01_Mensal", "Grupo", 'Dim_Calendario'[Ano-Mes], "Metrica", "TicketItens", "Valor", [Ticket]),
+    SELECTCOLUMNS(__Mensal, "Analise", "01_Mensal", "Grupo", 'Dim_Calendario'[Ano-Mes], "Metrica", "TicketItensEntregues", "Valor", [TicketEntregue]),
+    SELECTCOLUMNS(__Categorias, "Analise", "02_Categorias", "Grupo", COALESCE('Dim_Produtos'[Categoria do Produto (Português)], "(sem categoria)"), "Metrica", "ValorItens", "Valor", [Valor]),
+    SELECTCOLUMNS(__Categorias, "Analise", "02_Categorias", "Grupo", COALESCE('Dim_Produtos'[Categoria do Produto (Português)], "(sem categoria)"), "Metrica", "Itens", "Valor", [Itens]),
+    SELECTCOLUMNS(__Categorias, "Analise", "02_Categorias", "Grupo", COALESCE('Dim_Produtos'[Categoria do Produto (Português)], "(sem categoria)"), "Metrica", "PedidosComItens", "Valor", [Pedidos]),
+    SELECTCOLUMNS(__Categorias, "Analise", "02_Categorias", "Grupo", COALESCE('Dim_Produtos'[Categoria do Produto (Português)], "(sem categoria)"), "Metrica", "Participacao", "Valor", [Participacao]),
+    SELECTCOLUMNS(__Vendedores, "Analise", "03_VendedoresTop10", "Grupo", COALESCE('Dim_Vendedores'[ID do Vendedor], "(sem vendedor)"), "Metrica", "ValorItens", "Valor", [Valor]),
+    SELECTCOLUMNS(__Vendedores, "Analise", "03_VendedoresTop10", "Grupo", COALESCE('Dim_Vendedores'[ID do Vendedor], "(sem vendedor)"), "Metrica", "Itens", "Valor", [Itens]),
+    SELECTCOLUMNS(__Vendedores, "Analise", "03_VendedoresTop10", "Grupo", COALESCE('Dim_Vendedores'[ID do Vendedor], "(sem vendedor)"), "Metrica", "PedidosComItens", "Valor", [Pedidos]),
+    SELECTCOLUMNS(__Vendedores, "Analise", "03_VendedoresTop10", "Grupo", COALESCE('Dim_Vendedores'[ID do Vendedor], "(sem vendedor)"), "Metrica", "Participacao", "Valor", DIVIDE([Valor], __TotalValor)),
+    SELECTCOLUMNS(__UF, "Analise", "04_UF", "Grupo", COALESCE('Dim_Clientes'[UF], "(sem UF)"), "Metrica", "Pedidos", "Valor", [Pedidos]),
+    SELECTCOLUMNS(__UF, "Analise", "04_UF", "Grupo", COALESCE('Dim_Clientes'[UF], "(sem UF)"), "Metrica", "Entregues", "Valor", [Entregues]),
+    SELECTCOLUMNS(__UF, "Analise", "04_UF", "Grupo", COALESCE('Dim_Clientes'[UF], "(sem UF)"), "Metrica", "ValorItens", "Valor", [Valor]),
+    SELECTCOLUMNS(__UF, "Analise", "04_UF", "Grupo", COALESCE('Dim_Clientes'[UF], "(sem UF)"), "Metrica", "ValorItensEntregues", "Valor", [ValorEntregue]),
+    SELECTCOLUMNS(__UF, "Analise", "04_UF", "Grupo", COALESCE('Dim_Clientes'[UF], "(sem UF)"), "Metrica", "Frete", "Valor", [Frete]),
+    SELECTCOLUMNS(__UF, "Analise", "04_UF", "Grupo", COALESCE('Dim_Clientes'[UF], "(sem UF)"), "Metrica", "DiasEntrega", "Valor", [Dias]),
+    SELECTCOLUMNS(__UF, "Analise", "04_UF", "Grupo", COALESCE('Dim_Clientes'[UF], "(sem UF)"), "Metrica", "BasePontualidade", "Valor", [BasePrazo]),
+    SELECTCOLUMNS(__UF, "Analise", "04_UF", "Grupo", COALESCE('Dim_Clientes'[UF], "(sem UF)"), "Metrica", "Atrasados", "Valor", [Atrasados]),
+    SELECTCOLUMNS(__UF, "Analise", "04_UF", "Grupo", COALESCE('Dim_Clientes'[UF], "(sem UF)"), "Metrica", "TaxaAtraso", "Valor", DIVIDE([Atrasados], [BasePrazo])),
+    SELECTCOLUMNS(__UF, "Analise", "04_UF", "Grupo", COALESCE('Dim_Clientes'[UF], "(sem UF)"), "Metrica", "ParticipacaoFrete", "Valor", DIVIDE([Frete], [Frete] + [Valor])),
+    ROW("Analise", "05_Logistica", "Grupo", "Total", "Metrica", "Entregues", "Valor", [Pedidos Entregues]),
+    ROW("Analise", "05_Logistica", "Grupo", "Total", "Metrica", "BasePontualidade", "Valor", [Pedidos com Entrega e Previsão]),
+    ROW("Analise", "05_Logistica", "Grupo", "Total", "Metrica", "NoPrazo", "Valor", [Pedidos Entregues no Prazo]),
+    ROW("Analise", "05_Logistica", "Grupo", "Total", "Metrica", "Atrasados", "Valor", [Pedidos Entregues Atrasados]),
+    ROW("Analise", "05_Logistica", "Grupo", "Total", "Metrica", "TaxaNoPrazo", "Valor", [Taxa de Entrega no Prazo]),
+    ROW("Analise", "05_Logistica", "Grupo", "Total", "Metrica", "TaxaAtraso", "Valor", DIVIDE([Pedidos Entregues Atrasados], [Pedidos com Entrega e Previsão])),
+    ROW("Analise", "05_Logistica", "Grupo", "Total", "Metrica", "DiasEntrega", "Valor", [Tempo Médio de Entrega (Dias)]),
+    ROW("Analise", "06_Satisfacao", "Grupo", "Total", "Metrica", "Avaliacoes", "Valor", [Avaliações Registradas]),
+    ROW("Analise", "06_Satisfacao", "Grupo", "Total", "Metrica", "PedidosAvaliados", "Valor", [Pedidos Avaliados]),
+    ROW("Analise", "06_Satisfacao", "Grupo", "Total", "Metrica", "NotaMediaRegistros", "Valor", [Nota Média das Avaliações]),
+    ROW("Analise", "06_Satisfacao", "Grupo", "Total", "Metrica", "AvaliacoesPositivas", "Valor", [Avaliações Positivas]),
+    ROW("Analise", "06_Satisfacao", "Grupo", "Total", "Metrica", "TaxaPositivas", "Valor", [Taxa de Avaliações Positivas]),
+    ROW("Analise", "06_Satisfacao", "Grupo", "Total", "Metrica", "NotaMediaPorPedido", "Valor", AVERAGEX(__NotaPorPedido, [__Nota])),
+    SELECTCOLUMNS(__Atraso, "Analise", "07_AtrasoNotas", "Grupo", [__Grupo], "Metrica", "Pedidos", "Valor", [__Pedidos]),
+    SELECTCOLUMNS(__Atraso, "Analise", "07_AtrasoNotas", "Grupo", [__Grupo], "Metrica", "PedidosAvaliados", "Valor", [__PedidosAvaliados]),
+    SELECTCOLUMNS(__Atraso, "Analise", "07_AtrasoNotas", "Grupo", [__Grupo], "Metrica", "NotaMediaPorPedido", "Valor", [__MediaPedido]),
+    SELECTCOLUMNS(__Atraso, "Analise", "07_AtrasoNotas", "Grupo", [__Grupo], "Metrica", "DPNotaPorPedido", "Valor", [__DPPedido]),
+    SELECTCOLUMNS(__Atraso, "Analise", "07_AtrasoNotas", "Grupo", [__Grupo], "Metrica", "Avaliacoes", "Valor", [__AvaliacoesTotal]),
+    SELECTCOLUMNS(__Atraso, "Analise", "07_AtrasoNotas", "Grupo", [__Grupo], "Metrica", "NotasValidas", "Valor", [__NotasTotal]),
+    SELECTCOLUMNS(__Atraso, "Analise", "07_AtrasoNotas", "Grupo", [__Grupo], "Metrica", "NotaMediaRegistros", "Valor", DIVIDE([__SomaNotas], [__NotasTotal]))
+)
+ORDER BY [Analise], [Grupo], [Metrica]

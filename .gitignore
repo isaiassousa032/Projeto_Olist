@@ -1,17 +1,42 @@
-Projeto_Olist - Pratica.pbix
-archive.zip
-datasets
-Documento de Arquitetura de Dados Olist E-Commerce.docx
-Dicionario de Dados Olist Desatualizado.png
-Dicionario de Dados Olist Definitivo.pdf
-Mapeamento De-Para das linhas e colunas da Modelagem Olist no Power BI.pdf
-Dicionario de Dados Olist Definitivo.png
-env/
-.ipynb_checkpoints/
-.DS_Store
-venv/
-env/
+# Ambientes e credenciais
 .env
+.env.*
+!.env.example
+profiles.yml
+profiles.yaml
+.dbt/
+.snowflake/
+*.pem
+*.p8
+*.key
+*.crt
+
+# Ambientes Python e caches
+env/
+venv/
+.venv/
 __pycache__/
 *.pyc
+.ipynb_checkpoints/
+.DS_Store
+
+# Artefatos locais do dbt e execução
+target/
+dbt_packages/
+dbt_internal_packages/
+logs/
+*.log
+*.tmp
+*.temp
 .tmp.driveupload/
+
+# Configurações locais do editor
+.vscode/
+.pbi/
+
+# Arquivos binários locais do Power BI; o projeto PBIP/PBIR/TMDL permanece versionável
+*.pbix
+*.pbit
+*.pbit.backup
+*.pbix.backup
+*.bak

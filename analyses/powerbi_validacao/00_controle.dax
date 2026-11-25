@@ -1,0 +1,1 @@
+EVALUATE ROW("Pedidos", COUNTROWS('Fato_Pedidos'), "Itens", COUNTROWS('Fato_Itens_Pedido'), "Pagamentos", COUNTROWS('Fato_Pagamentos'), "Avaliacoes", COUNTROWS('Fato_Avaliacoes'), "Inicio", MIN('Fato_Pedidos'[Data da Compra]), "Fim", MAX('Fato_Pedidos'[Data da Compra]))

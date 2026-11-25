@@ -1,0 +1,48 @@
+# Projeto: Olist V2 - Analytics Engineering
+# =========================================
+
+# Identificação do projeto
+name: 'olist'
+version: '1.0.0'
+config-version: 2
+
+# Perfil de conexão com o snowflake
+profile: 'default'
+
+# Pacotes do projeto
+# ==================
+model-paths: ["models/olist"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Configurações dos modelos
+# =========================
+
+models:
+  olist:
+
+    # Camada Staging
+    # Limpeza, renomeação e padronização de dados
+    staging:
+      +schema: staging
+      +materialized: view
+
+    # Camada Intermediate
+    # Integração e transformações intermediárias
+    intermediate:
+      +schema: intermediate
+      +materialized: view
+
+    # Camada Marts / Gold
+    # Modelos analíticos, fatos e dimensões
+    marts:
+      +schema: marts
+      +materialized: table
+flags:
+  require_generic_test_arguments_property: true
